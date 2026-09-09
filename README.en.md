@@ -1,5 +1,7 @@
 # SC-TSE · Integration MVP
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22669717.svg)](https://doi.org/10.5281/zenodo.22669717)
+
 [中文](README.md)
 
 This local Integration MVP connects the existing SC-TSE spatial computation pipeline to a two-dimensional workspace. Load a structured project, select a block, edit its center coordinates, and explicitly rerun the complete pipeline.
