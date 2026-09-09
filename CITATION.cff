@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "SC-TSE"
+type: software
+authors:
+  - family-names: "Yang"
+    given-names: "Ruixin"
+version: "0.1.0-alpha"
+date-released: "2026-09-09"
+doi: "10.5281/zenodo.22669717"
+repository-code: "https://github.com/David7583/sc-tse"
+license: "AGPL-3.0-only"
