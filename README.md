@@ -1,5 +1,5 @@
 # SC-TSE · Integration MVP
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22669717.svg)](https://doi.org/10.5281/zenodo.22669717)
 [English](README.en.md)
 
 SC-TSE（语义约束与低维拓扑参数化空间求解引擎）的本地 Integration MVP。它将现有计算主链连接到一个二维工作台：载入结构化项目、选择体块、手动修改中心坐标，再执行完整计算。
