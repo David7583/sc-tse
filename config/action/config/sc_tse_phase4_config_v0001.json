@@ -1,0 +1,45 @@
+{
+  "config_version": "v0001",
+  "width_candidates_m": [
+    6,
+    8,
+    10
+  ],
+  "setbacks": {
+    "road_redline_m": 5,
+    "building_redline_m": 5,
+    "building_road_m": 5
+  },
+  "turning": {
+    "centerline_radius_m": 12
+  },
+  "vertical": {
+    "cross_slope_ratio": 0.02,
+    "min_cross_slope_ratio": 0.01,
+    "max_cross_slope_ratio": 0.03,
+    "max_longitudinal_slope_ratio": 0.06,
+    "sample_step_m": 2
+  },
+  "search": {
+    "inset_offsets_m": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "max_attempts": 12,
+    "max_vertices": 256,
+    "max_samples": 20000
+  },
+  "numerics": {
+    "linear_tolerance_m": 1e-7,
+    "arc_chord_error_m": 0.002
+  },
+  "assumptions": {
+    "width_and_setbacks": "User supplied 2026-09-05; setback measured from road edge and footprint",
+    "turning": "12m CENTERLINE radius is synthetic test assumption, not vehicle certification",
+    "cross_slope": "2% symmetric crown baseline; FHWA https://mutcd.fhwa.dot.gov/rpt/tcstoll/chapter646.htm",
+    "longitudinal": "6% configurable test limit; not inferred fire compliance",
+    "boundary_override": "Explicit per-edge override can set road setback to 0; buildings remain independent"
+  }
+}

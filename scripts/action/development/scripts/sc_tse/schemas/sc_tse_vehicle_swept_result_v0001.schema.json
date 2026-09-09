@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SC-TSE Vehicle Swept Path Run v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "execution_status", "evaluation_status", "problem_id", "problem_hash", "vehicle_id", "vehicle_spec_hash", "turning_check", "swept_envelope", "road_edge_clearance", "obstacle_clearance", "failure_evidence", "sampling_context", "source_refs", "not_evaluated_items", "scope", "observability", "result_hash"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-vehicle-swept-result-v0.1.0"},
+    "record_type": {"const": "VehicleSweptPathRun"},
+    "execution_status": {"const": "COMPLETED"},
+    "evaluation_status": {"enum": ["PASS", "FAIL"]},
+    "problem_id": {"type": "string"},
+    "problem_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "vehicle_id": {"type": "string"},
+    "vehicle_spec_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "turning_check": {
+      "type": "object",
+      "required": ["status", "path_minimum_radius_m", "vehicle_minimum_rear_axle_radius_m", "turning_model"],
+      "properties": {"status": {"enum": ["PASS", "FAIL"]}}
+    },
+    "swept_envelope": {
+      "type": "object",
+      "required": ["geometry_type", "rings_xy", "area_m2", "method"],
+      "properties": {"area_m2": {"type": "number", "minimum": 0}, "method": {"const": "SAMPLED_POSE_CONVEX_BRIDGE_V1"}}
+    },
+    "road_edge_clearance": {"type": "object", "required": ["status", "minimum_clearance_m", "required_clearance_m", "clearance_margin_m", "outside_area_m2"]},
+    "obstacle_clearance": {"type": "object", "required": ["status", "minimum_clearance_m", "required_clearance_m", "obstacles"]},
+    "failure_evidence": {"type": "array"},
+    "sampling_context": {"type": "object", "required": ["pose_step_m", "pose_count", "path_length_m", "maximum_pose_count"]},
+    "source_refs": {"type": "object"},
+    "not_evaluated_items": {"type": "array", "items": {"type": "string"}},
+    "scope": {"const": "SINGLE_FORWARD_PATH_REAR_AXLE_CENTERLINE_GEOMETRIC_SWEEP"},
+    "observability": {"type": "object", "required": ["total_ms", "pose_count", "obstacle_count", "failure_count"]},
+    "result_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

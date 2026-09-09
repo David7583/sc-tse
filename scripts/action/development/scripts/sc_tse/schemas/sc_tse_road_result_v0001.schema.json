@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SC-TSE RoadRun v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_type",
+    "execution_status",
+    "solve_status",
+    "solution_quality",
+    "problem",
+    "configuration",
+    "problem_hash",
+    "config_hash",
+    "attempts",
+    "candidate",
+    "metric_set",
+    "diagnostics",
+    "observability",
+    "scope"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "sc-tse-road-v0.1.0"
+    },
+    "record_type": {
+      "const": "RoadRun"
+    },
+    "execution_status": {
+      "enum": [
+        "COMPLETED",
+        "INTERRUPTED"
+      ]
+    },
+    "solve_status": {
+      "enum": [
+        "FEASIBLE",
+        "UNRESOLVED"
+      ]
+    },
+    "solution_quality": {
+      "enum": [
+        "GOOD",
+        "UNKNOWN"
+      ]
+    },
+    "problem": {
+      "type": "object"
+    },
+    "configuration": {
+      "type": "object"
+    },
+    "problem_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "config_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "attempt_index",
+          "specification",
+          "status"
+        ]
+      }
+    },
+    "candidate": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "candidate_id",
+            "candidate_fingerprint",
+            "parent_problem_hash",
+            "alignment",
+            "horizontal",
+            "vertical",
+            "solve_status",
+            "hard_constraint_status"
+          ],
+          "properties": {
+            "solve_status": {
+              "enum": [
+                "FEASIBLE",
+                "INFEASIBLE",
+                "NOT_EVALUATED"
+              ]
+            },
+            "hard_constraint_status": {
+              "enum": [
+                "SATISFIED",
+                "VIOLATED",
+                "NOT_EVALUATED"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "metric_set": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "diagnostics": {
+      "type": "array"
+    },
+    "observability": {
+      "type": "object",
+      "required": [
+        "total_ms",
+        "attempt_count"
+      ]
+    },
+    "scope": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "solve_status": {
+            "const": "FEASIBLE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "execution_status": {
+            "const": "COMPLETED"
+          },
+          "candidate": {
+            "type": "object",
+            "properties": {
+              "solve_status": {
+                "const": "FEASIBLE"
+              },
+              "hard_constraint_status": {
+                "const": "SATISFIED"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

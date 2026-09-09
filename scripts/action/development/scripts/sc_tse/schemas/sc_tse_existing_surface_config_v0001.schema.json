@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_existing_surface_config_v0001.schema.json",
+  "title": "SC-TSE Existing Surface Config v0001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "config_version",
+    "surface_method",
+    "surface_method_version",
+    "coverage_policy",
+    "allowed_geometry_types",
+    "eligible_semantics",
+    "coordinate_unit",
+    "elevation_reference",
+    "triangulation_snap_tolerance_m",
+    "numerical_tolerance_m",
+    "barycentric_tolerance",
+    "equivalent_elevation_tolerance_m",
+    "minimum_triangle_area_m2",
+    "query_statuses"
+  ],
+  "properties": {
+    "config_version": {"const": "v0001"},
+    "surface_method": {"const": "TIN_DELAUNAY_LINEAR"},
+    "surface_method_version": {"const": "v0001"},
+    "coverage_policy": {"const": "CONVEX_HULL_OF_SURFACE_SAMPLES"},
+    "allowed_geometry_types": {"const": ["Polyline2D", "Point2D"]},
+    "eligible_semantics": {"const": ["EXISTING_GROUND"]},
+    "coordinate_unit": {"const": "m"},
+    "elevation_reference": {"const": "MSL"},
+    "triangulation_snap_tolerance_m": {"const": 0.0},
+    "numerical_tolerance_m": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.001},
+    "barycentric_tolerance": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.000001},
+    "equivalent_elevation_tolerance_m": {"type": "number", "minimum": 0, "maximum": 0.001},
+    "minimum_triangle_area_m2": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.01},
+    "query_statuses": {"const": ["AVAILABLE", "OUTSIDE_COVERAGE", "UNAVAILABLE_COVERAGE_GAP"]}
+  }
+}

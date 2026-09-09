@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_phase3_result_v0001.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mode", "problem_class", "problem_id", "execution_status", "solve_status", "solution_quality", "source_result_schema_version", "source_result_sha256", "computational_result", "feedback_batch", "feedback_context", "diagnostics", "evidence", "solver_metadata"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-phase3-result-v0.1.0"},
+    "mode": {"enum": ["RUN", "DRY_RUN", "ERROR"]},
+    "problem_class": {"type": ["string", "null"], "enum": ["LAYOUT", "CONNECTIVITY", null]},
+    "problem_id": {"type": ["string", "null"]},
+    "execution_status": {"enum": ["COMPLETED", "INTERRUPTED", "ERROR"]},
+    "solve_status": {"enum": ["FEASIBLE", "INFEASIBLE", "UNRESOLVED", "NOT_EVALUATED"]},
+    "solution_quality": {"enum": ["GOOD", "ACCEPTABLE", "POOR", "UNKNOWN", "N/A"]},
+    "source_result_schema_version": {"type": ["string", "null"]},
+    "source_result_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "computational_result": {"type": ["object", "null"]},
+    "feedback_batch": {"oneOf": [{"$ref": "#/$defs/feedbackBatch"}, {"type": "null"}]},
+    "feedback_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["previous_feedback_count", "previous_feedback_ids", "consumption_mode", "automatic_action_applied"],
+      "properties": {
+        "previous_feedback_count": {"type": "integer", "minimum": 0},
+        "previous_feedback_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "consumption_mode": {"const": "TRACE_ONLY"},
+        "automatic_action_applied": {"const": false}
+      }
+    },
+    "diagnostics": {"type": "object"},
+    "evidence": {"type": "array", "items": {"type": "object"}},
+    "solver_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["phase", "strategy", "source_solver_invocations", "feedback_cycles", "automatic_problem_mutations", "termination_reason"],
+      "properties": {
+        "phase": {"const": "PHASE_3"},
+        "strategy": {"type": ["string", "null"]},
+        "source_solver_invocations": {"type": "integer", "minimum": 0, "maximum": 1},
+        "feedback_cycles": {"const": 0},
+        "automatic_problem_mutations": {"const": 0},
+        "termination_reason": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "point2d": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "layoutFeedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["feedback_id", "source", "reason", "affected_blocks", "affected_gates", "severity", "direction_hint", "magnitude_hint", "suggested_action", "evidence"],
+      "properties": {
+        "feedback_id": {"type": "string", "pattern": "^lfb-[0-9a-f]{24}$"},
+        "source": {"enum": ["LAYOUT_SOLVER", "CONNECTIVITY_EVALUATOR"]},
+        "reason": {"type": "string", "minLength": 1},
+        "affected_blocks": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "affected_gates": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "severity": {"enum": ["BLOCKING", "NON_BLOCKING", "INDETERMINATE"]},
+        "direction_hint": {"oneOf": [{"$ref": "#/$defs/point2d"}, {"type": "null"}]},
+        "magnitude_hint": {"type": ["number", "null"], "minimum": 0},
+        "suggested_action": {"type": ["string", "null"]},
+        "evidence": {"type": "object"}
+      }
+    },
+    "feedbackBatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "source_problem_id", "source_result_schema_version", "hints_are_non_binding", "feedback"],
+      "properties": {
+        "schema_version": {"const": "sc-tse-layout-feedback-batch-v0.1.0"},
+        "source_problem_id": {"type": "string", "minLength": 1},
+        "source_result_schema_version": {"enum": ["sc-tse-layout-result-v0.1.0", "sc-tse-connectivity-result-v0.1.0"]},
+        "hints_are_non_binding": {"const": true},
+        "feedback": {"type": "array", "items": {"$ref": "#/$defs/layoutFeedback"}}
+      }
+    }
+  }
+}

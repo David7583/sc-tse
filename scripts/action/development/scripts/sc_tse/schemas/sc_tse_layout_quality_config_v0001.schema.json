@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc-tse-layout-quality-config-v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["config_version", "phase1_config_path", "phase2_config_path", "phase2_problem_template_path", "phase4_config_path", "phase4_problem_template_path", "road_access_config_path", "road_access_request_path", "max_generated_candidates", "relations", "foundation_evaluation", "quality_preferences"],
+  "properties": {
+    "config_version": {"const": "v0001"},
+    "phase1_config_path": {"type": "string", "minLength": 1},
+    "phase2_config_path": {"type": "string", "minLength": 1},
+    "phase2_problem_template_path": {"type": "string", "minLength": 1},
+    "phase4_config_path": {"type": "string", "minLength": 1},
+    "phase4_problem_template_path": {"type": "string", "minLength": 1},
+    "road_access_config_path": {"type": "string", "minLength": 1},
+    "road_access_request_path": {"type": "string", "minLength": 1},
+    "max_generated_candidates": {"type": "integer", "minimum": 3, "maximum": 64},
+    "relations": {"type": "object", "additionalProperties": {"type": "string", "minLength": 1}, "required": ["production_block_id", "warehouse_block_id", "power_block_id", "auxiliary_block_id", "admin_access_id", "main_entrance_access_id", "production_access_id", "warehouse_access_id", "logistics_connection_id"]},
+    "foundation_evaluation": {"type": "object"},
+    "quality_preferences": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+  }
+}

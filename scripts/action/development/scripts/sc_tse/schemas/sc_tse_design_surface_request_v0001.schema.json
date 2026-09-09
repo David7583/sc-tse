@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_design_surface_request_v0001.schema.json",
+  "title": "SC-TSE Parameterized Design Surface Request v0001",
+  "type": "object",
+  "required": ["schema_version", "request_id", "source_package_sha256", "surfaces"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "sc-tse-design-surface-request-v0.1.0"},
+    "request_id": {"type": "string", "minLength": 1},
+    "source_package_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["surface_id", "surface_type", "region_ref", "semantic", "reference", "parameter"],
+        "additionalProperties": false,
+        "properties": {
+          "surface_id": {"type": "string", "minLength": 1},
+          "surface_type": {"const": "CONSTANT_ELEVATION_PAD"},
+          "region_ref": {"type": "string", "minLength": 1},
+          "semantic": {"const": "DESIGN_PAD_ELEVATION"},
+          "reference": {"type": "string", "minLength": 1},
+          "parameter": {
+            "type": "object",
+            "required": ["parameter_id", "mode", "initial_value_m", "lower_bound_m", "upper_bound_m", "source_ref", "supersedes_source_mode"],
+            "additionalProperties": false,
+            "properties": {
+              "parameter_id": {"type": "string", "minLength": 1},
+              "mode": {"const": "FREE"},
+              "initial_value_m": {"type": ["number", "null"]},
+              "lower_bound_m": {"type": "null"},
+              "upper_bound_m": {"type": "null"},
+              "source_ref": {"type": "string", "minLength": 1},
+              "supersedes_source_mode": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    }
+  }
+}

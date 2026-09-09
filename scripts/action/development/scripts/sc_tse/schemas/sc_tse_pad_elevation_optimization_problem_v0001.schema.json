@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_pad_elevation_optimization_problem_v0001.schema.json",
+  "title": "SC-TSE Pad Elevation Optimization Problem v0001",
+  "type": "object",
+  "required": ["schema_version", "record_type", "problem_id", "request_id", "design_surface_id", "design_parameter_id", "design_parameter_mode", "candidate_elevations_m", "platform_boundary", "earthwork_cell_size_m", "slope", "constraints", "hard_constraints", "road_connection", "objective_weights", "source_refs", "problem_hash"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-pad-elevation-optimization-problem-v0.1.0"},
+    "record_type": {"const": "PadElevationOptimizationProblem"},
+    "problem_id": {"type": "string", "minLength": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "design_surface_id": {"type": "string", "minLength": 1},
+    "design_parameter_id": {"type": "string", "minLength": 1},
+    "design_parameter_mode": {"const": "FREE"},
+    "candidate_elevations_m": {"type": "array", "minItems": 1, "items": {"type": "number"}},
+    "platform_boundary": {"type": "array"},
+    "earthwork_cell_size_m": {"type": "number", "exclusiveMinimum": 0},
+    "slope": {"type": "object"},
+    "constraints": {"type": "object"},
+    "hard_constraints": {"type": "object"},
+    "road_connection": {"type": "object"},
+    "objective_weights": {"type": "object"},
+    "source_refs": {"type": "object"},
+    "problem_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_pad_elevation_optimization_result_v0001.schema.json",
+  "title": "SC-TSE Pad Elevation Optimization Result v0001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "execution_status", "evaluation_status", "problem_id", "problem_hash", "design_parameter", "candidate_evaluations", "feasible_candidate_set", "rejected_candidate_set", "metric_set", "ranking_context", "summary", "source_refs", "excluded_future_variables", "scope", "observability", "result_hash"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-pad-elevation-optimization-result-v0.1.0"},
+    "record_type": {"const": "PadElevationOptimizationRun"},
+    "execution_status": {"const": "COMPLETED"},
+    "evaluation_status": {"enum": ["COMPLETE", "NO_FEASIBLE_CANDIDATE"]},
+    "problem_id": {"type": "string"},
+    "problem_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "design_parameter": {"type": "object", "required": ["parameter_id", "mode", "candidate_values_are_locked"], "properties": {"parameter_id": {"type": "string"}, "mode": {"const": "FREE"}, "candidate_values_are_locked": {"const": false}}, "additionalProperties": false},
+    "candidate_evaluations": {"type": "array", "items": {"$ref": "#/$defs/candidate"}},
+    "feasible_candidate_set": {"type": "array", "items": {"type": "string"}},
+    "rejected_candidate_set": {"type": "array", "items": {"type": "string"}},
+    "metric_set": {"type": "object", "additionalProperties": {"$ref": "#/$defs/metrics"}},
+    "ranking_context": {"type": "object"},
+    "summary": {"type": "object", "required": ["candidate_count", "feasible_count", "rejected_count"], "properties": {"candidate_count": {"type": "integer"}, "feasible_count": {"type": "integer"}, "rejected_count": {"type": "integer"}}, "additionalProperties": false},
+    "source_refs": {"type": "object"},
+    "excluded_future_variables": {"type": "array", "items": {"type": "string"}},
+    "scope": {"const": "PAD_ELEVATION_FEASIBLE_SET_METRICS_AND_RANKING_CONTEXT_ONLY"},
+    "observability": {"type": "object"},
+    "result_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cut_volume_m3", "fill_volume_m3", "net_earthwork_m3", "total_moved_volume_m3", "max_cut_depth_m", "max_fill_depth_m", "slope_footprint_area_m2", "road_connection_penalty_m"],
+      "properties": {
+        "cut_volume_m3": {"type": "number"}, "fill_volume_m3": {"type": "number"}, "net_earthwork_m3": {"type": "number"}, "total_moved_volume_m3": {"type": "number"},
+        "max_cut_depth_m": {"type": "number"}, "max_fill_depth_m": {"type": "number"}, "slope_footprint_area_m2": {"type": "number"}, "road_connection_penalty_m": {"type": "number"}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_id", "pad_elevation_m", "feasible", "evaluation_trace", "hard_constraint_checks", "deterministic_evidence", "metrics"],
+      "properties": {
+        "candidate_id": {"type": "string"}, "pad_elevation_m": {"type": "number"}, "feasible": {"type": "boolean"},
+        "evaluation_trace": {"type": "array", "items": {"enum": ["GENERATED", "HARD_CONSTRAINT_CHECKED", "METRICS_COMPUTED", "RANKED"]}},
+        "hard_constraint_checks": {"type": "array", "items": {"type": "object"}},
+        "deterministic_evidence": {"type": "object"},
+        "metrics": {"oneOf": [{"$ref": "#/$defs/metrics"}, {"type": "null"}]}
+      }
+    }
+  }
+}

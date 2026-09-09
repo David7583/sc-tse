@@ -1,0 +1,5 @@
+{
+  "config_version": "sc-tse-baseline-hardening-v0.1.0",
+  "reuse_grid": true,
+  "incremental_constraints": false
+}

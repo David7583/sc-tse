@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SC-TSE Multi Elevation Config v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "supported_relation_types", "limits", "numerics"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-multi-elevation-config-v0.1.0"},
+    "supported_relation_types": {"const": ["SIGNED_LEVEL_DIFFERENCE", "LOCAL_CONNECTION_SLOPE"]},
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maximum_objects", "maximum_nodes", "maximum_relations"],
+      "properties": {
+        "maximum_objects": {"type": "integer", "minimum": 1},
+        "maximum_nodes": {"type": "integer", "minimum": 1},
+        "maximum_relations": {"type": "integer", "minimum": 1}
+      }
+    },
+    "numerics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["linear_tolerance_m", "level_tolerance_m"],
+      "properties": {
+        "linear_tolerance_m": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.1},
+        "level_tolerance_m": {"type": "number", "minimum": 0, "maximum": 0.1}
+      }
+    }
+  }
+}

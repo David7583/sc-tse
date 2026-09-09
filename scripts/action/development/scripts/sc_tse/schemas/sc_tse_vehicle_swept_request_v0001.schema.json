@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SC-TSE Vehicle Swept Path Request v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "analysis_id", "vehicle", "path_tracking", "clearance_requirements", "obstacle_source"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-vehicle-swept-request-v0.1.0"},
+    "record_type": {"const": "VehicleSweptPathRequest"},
+    "analysis_id": {"type": "string", "minLength": 1},
+    "vehicle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["vehicle_id", "vehicle_version", "dimensions", "turning"],
+      "properties": {
+        "vehicle_id": {"type": "string", "minLength": 1},
+        "vehicle_version": {"type": "string", "minLength": 1},
+        "dimensions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["width_m", "wheelbase_m", "front_overhang_m", "rear_overhang_m"],
+          "properties": {
+            "width_m": {"type": "number", "exclusiveMinimum": 0},
+            "wheelbase_m": {"type": "number", "exclusiveMinimum": 0},
+            "front_overhang_m": {"type": "number", "minimum": 0},
+            "rear_overhang_m": {"type": "number", "minimum": 0}
+          }
+        },
+        "turning": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["model", "max_steering_angle_deg"],
+              "properties": {
+                "model": {"const": "MAX_STEERING_ANGLE"},
+                "max_steering_angle_deg": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 90}
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["model", "minimum_rear_axle_radius_m"],
+              "properties": {
+                "model": {"const": "MINIMUM_REAR_AXLE_RADIUS"},
+                "minimum_rear_axle_radius_m": {"type": "number", "minimum": 0}
+              }
+            }
+          ]
+        }
+      }
+    },
+    "path_tracking": {
+      "const": {"path_source": "ROAD_CANDIDATE_CENTERLINE", "reference_point": "REAR_AXLE_MIDPOINT"}
+    },
+    "clearance_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["road_edge_m", "obstacle_m"],
+      "properties": {
+        "road_edge_m": {"type": "number", "minimum": 0},
+        "obstacle_m": {"type": "number", "minimum": 0}
+      }
+    },
+    "obstacle_source": {"const": "ROAD_PROBLEM_BUILDINGS"}
+  }
+}

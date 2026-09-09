@@ -1,0 +1,12 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"sc_tse_road_graph_engineering_result_v0001.schema.json","type":"object","additionalProperties":false,
+  "required":["schema_version","record_type","execution_status","solve_status","hard_constraint_status","problem_id","road_graph_id","road_graph_topology","candidate","corridor_runs","failure_data","source_refs","observability"],
+  "properties":{
+    "schema_version":{"const":"sc-tse-road-graph-engineering-result-v0.1.0"},"record_type":{"const":"RoadGraphEngineeringRun"},"execution_status":{"const":"COMPLETED"},"solve_status":{"enum":["FEASIBLE","UNRESOLVED"]},"hard_constraint_status":{"enum":["SATISFIED","VIOLATED"]},"problem_id":{"type":"string"},"road_graph_id":{"type":"string"},
+    "road_graph_topology":{"type":"object","additionalProperties":false,"required":["connected_component_count","cycle_count","status"],"properties":{"connected_component_count":{"type":"integer","minimum":0},"cycle_count":{"type":"integer","minimum":0},"status":{"enum":["SATISFIED","VIOLATED"]}}},
+    "candidate":{"type":"object","additionalProperties":false,"required":["candidate_id","hard_constraint_status"],"properties":{"candidate_id":{"type":"string"},"hard_constraint_status":{"enum":["SATISFIED","VIOLATED"]}}},
+    "corridor_runs":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["polyline_id","source_connection_ids","admission_status","road_run"],"properties":{"polyline_id":{"type":"string"},"source_connection_ids":{"type":"array","items":{"type":"string"}},"admission_status":{"enum":["ADMITTED","REJECTED"]},"road_run":{"type":"object"}}}},
+    "failure_data":{"type":"array","items":{"type":"object"}},"source_refs":{"type":"object"},"observability":{"type":"object"}
+  }
+}
+

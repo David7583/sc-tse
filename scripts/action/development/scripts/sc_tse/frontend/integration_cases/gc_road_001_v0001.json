@@ -1,0 +1,643 @@
+{
+  "schema_version": "sc-tse-integration-project-v0001",
+  "project_id": "GC_ROAD_001",
+  "title": "四体块场地 · 道路主链验证",
+  "case": {
+    "case_id": "GC_ROAD_001",
+    "problem_id": "GC_ROAD_001",
+    "site_id": "SITE_GC_ROAD_001",
+    "coordinate_frame": {
+      "frame_id": "SC_TSE_CARTESIAN_RH",
+      "handedness": "RIGHT",
+      "z_axis": "UP",
+      "length_unit": "m"
+    },
+    "site_geometry": {
+      "type": "polygon",
+      "coordinates": [
+        [
+          0,
+          0
+        ],
+        [
+          220,
+          0
+        ],
+        [
+          220,
+          160
+        ],
+        [
+          0,
+          160
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "blocks": [
+      {
+        "block_id": "B1_PRODUCTION",
+        "block_type": "PRODUCTION_BUILDING",
+        "geometry": {
+          "type": "rectangle",
+          "center": [
+            70,
+            80
+          ],
+          "width_m": 60,
+          "height_m": 50,
+          "rotation_deg": 0
+        },
+        "semantic_attributes": {},
+        "connection_gates": [
+          {
+            "gate_id": "G_B1_W",
+            "position": [
+              40,
+              80
+            ],
+            "gate_type": "LOGISTICS",
+            "allowed_connections": [
+              "BASIC"
+            ],
+            "metadata": {
+              "case_id": "GC_ROAD_001"
+            }
+          }
+        ],
+        "metadata": {
+          "case_id": "GC_ROAD_001"
+        }
+      },
+      {
+        "block_id": "B2_WAREHOUSE",
+        "block_type": "WAREHOUSE",
+        "geometry": {
+          "type": "rectangle",
+          "center": [
+            155,
+            80
+          ],
+          "width_m": 50,
+          "height_m": 50,
+          "rotation_deg": 0
+        },
+        "semantic_attributes": {},
+        "connection_gates": [
+          {
+            "gate_id": "G_B2_E",
+            "position": [
+              180,
+              80
+            ],
+            "gate_type": "LOGISTICS",
+            "allowed_connections": [
+              "BASIC"
+            ],
+            "metadata": {
+              "case_id": "GC_ROAD_001"
+            }
+          }
+        ],
+        "metadata": {
+          "case_id": "GC_ROAD_001"
+        }
+      },
+      {
+        "block_id": "B3_ADMIN",
+        "block_type": "ADMINISTRATION",
+        "geometry": {
+          "type": "rectangle",
+          "center": [
+            75,
+            130
+          ],
+          "width_m": 40,
+          "height_m": 24,
+          "rotation_deg": 0
+        },
+        "semantic_attributes": {},
+        "connection_gates": [
+          {
+            "gate_id": "G_B3_S",
+            "position": [
+              75,
+              118
+            ],
+            "gate_type": "PERSONNEL",
+            "allowed_connections": [
+              "BASIC"
+            ],
+            "metadata": {
+              "case_id": "GC_ROAD_001"
+            }
+          }
+        ],
+        "metadata": {
+          "case_id": "GC_ROAD_001"
+        }
+      },
+      {
+        "block_id": "B4_UTILITY",
+        "block_type": "UTILITY_BUILDING",
+        "geometry": {
+          "type": "rectangle",
+          "center": [
+            155,
+            130
+          ],
+          "width_m": 36,
+          "height_m": 24,
+          "rotation_deg": 0
+        },
+        "semantic_attributes": {},
+        "connection_gates": [
+          {
+            "gate_id": "G_B4_S",
+            "position": [
+              155,
+              118
+            ],
+            "gate_type": "SERVICE",
+            "allowed_connections": [
+              "BASIC"
+            ],
+            "metadata": {
+              "case_id": "GC_ROAD_001"
+            }
+          }
+        ],
+        "metadata": {
+          "case_id": "GC_ROAD_001"
+        }
+      }
+    ],
+    "constraints": [
+      {
+        "constraint_id": "C_B1_SITE",
+        "type": "inside_site",
+        "subjects": [
+          "B1_PRODUCTION",
+          "site_boundary"
+        ],
+        "parameters": {},
+        "hardness": "HARD",
+        "priority": 0,
+        "source": {
+          "case_id": "GC_ROAD_001"
+        },
+        "metadata": {}
+      },
+      {
+        "constraint_id": "C_B2_SITE",
+        "type": "inside_site",
+        "subjects": [
+          "B2_WAREHOUSE",
+          "site_boundary"
+        ],
+        "parameters": {},
+        "hardness": "HARD",
+        "priority": 0,
+        "source": {
+          "case_id": "GC_ROAD_001"
+        },
+        "metadata": {}
+      },
+      {
+        "constraint_id": "C_B3_SITE",
+        "type": "inside_site",
+        "subjects": [
+          "B3_ADMIN",
+          "site_boundary"
+        ],
+        "parameters": {},
+        "hardness": "HARD",
+        "priority": 0,
+        "source": {
+          "case_id": "GC_ROAD_001"
+        },
+        "metadata": {}
+      },
+      {
+        "constraint_id": "C_B4_SITE",
+        "type": "inside_site",
+        "subjects": [
+          "B4_UTILITY",
+          "site_boundary"
+        ],
+        "parameters": {},
+        "hardness": "HARD",
+        "priority": 0,
+        "source": {
+          "case_id": "GC_ROAD_001"
+        },
+        "metadata": {}
+      },
+      {
+        "constraint_id": "C_B1_B2_DISTANCE",
+        "type": "min_distance",
+        "subjects": [
+          "B1_PRODUCTION",
+          "B2_WAREHOUSE"
+        ],
+        "parameters": {
+          "distance_m": 25
+        },
+        "hardness": "HARD",
+        "priority": 0,
+        "source": {
+          "case_id": "GC_ROAD_001"
+        },
+        "metadata": {}
+      },
+      {
+        "constraint_id": "C_B1_B3_DISTANCE",
+        "type": "min_distance",
+        "subjects": [
+          "B1_PRODUCTION",
+          "B3_ADMIN"
+        ],
+        "parameters": {
+          "distance_m": 13
+        },
+        "hardness": "HARD",
+        "priority": 0,
+        "source": {
+          "case_id": "GC_ROAD_001"
+        },
+        "metadata": {}
+      },
+      {
+        "constraint_id": "C_B2_B4_DISTANCE",
+        "type": "min_distance",
+        "subjects": [
+          "B2_WAREHOUSE",
+          "B4_UTILITY"
+        ],
+        "parameters": {
+          "distance_m": 13
+        },
+        "hardness": "HARD",
+        "priority": 0,
+        "source": {
+          "case_id": "GC_ROAD_001"
+        },
+        "metadata": {}
+      },
+      {
+        "constraint_id": "C_B3_B4_DISTANCE",
+        "type": "min_distance",
+        "subjects": [
+          "B3_ADMIN",
+          "B4_UTILITY"
+        ],
+        "parameters": {
+          "distance_m": 42
+        },
+        "hardness": "HARD",
+        "priority": 0,
+        "source": {
+          "case_id": "GC_ROAD_001"
+        },
+        "metadata": {}
+      }
+    ],
+    "connection_requirements": [
+      {
+        "connection_id": "CONN_B1_B3",
+        "source_block": "B1_PRODUCTION",
+        "source_gate": "G_B1_W",
+        "target_block": "B3_ADMIN",
+        "target_gate": "G_B3_S",
+        "connection_type": "BASIC",
+        "required": true,
+        "attributes": {
+          "case_id": "GC_ROAD_001"
+        }
+      },
+      {
+        "connection_id": "CONN_B3_B4",
+        "source_block": "B3_ADMIN",
+        "source_gate": "G_B3_S",
+        "target_block": "B4_UTILITY",
+        "target_gate": "G_B4_S",
+        "connection_type": "BASIC",
+        "required": true,
+        "attributes": {
+          "case_id": "GC_ROAD_001"
+        }
+      },
+      {
+        "connection_id": "CONN_B4_B2",
+        "source_block": "B4_UTILITY",
+        "source_gate": "G_B4_S",
+        "target_block": "B2_WAREHOUSE",
+        "target_gate": "G_B2_E",
+        "connection_type": "BASIC",
+        "required": true,
+        "attributes": {
+          "case_id": "GC_ROAD_001"
+        }
+      }
+    ],
+    "obstacle_buffer_m": 3,
+    "solver_config": {
+      "path_strategy": "GRID_A_STAR_4_NEIGHBOR",
+      "initial_probe_distance_m": 1,
+      "gateway_search_step_m": 1,
+      "max_gateway_distance_m": 8,
+      "grid_resolution_m": 1,
+      "max_grid_expansions": 70000
+    }
+  },
+  "road_graph_request": {
+    "schema_version": "sc-tse-road-graph-request-v0.1.0",
+    "problem_id": "GC_ROAD_001",
+    "site_entrances": [
+      {
+        "site_entrance_id": "SITE_MAIN",
+        "position": [
+          0,
+          80
+        ],
+        "road_connection_position": [
+          8,
+          80
+        ],
+        "role": "MAIN"
+      },
+      {
+        "site_entrance_id": "SITE_SECONDARY",
+        "position": [
+          220,
+          80
+        ],
+        "road_connection_position": [
+          212,
+          80
+        ],
+        "role": "SECONDARY"
+      }
+    ],
+    "network_connections": [
+      {
+        "connection_id": "ROAD_B1_B3",
+        "source": {
+          "kind": "BUILDING_GATE",
+          "id": "G_B1_W"
+        },
+        "target": {
+          "kind": "BUILDING_GATE",
+          "id": "G_B3_S"
+        },
+        "required": true,
+        "role": "PRIMARY",
+        "phase2_connection_id": "CONN_B1_B3"
+      },
+      {
+        "connection_id": "ROAD_B3_B4",
+        "source": {
+          "kind": "BUILDING_GATE",
+          "id": "G_B3_S"
+        },
+        "target": {
+          "kind": "BUILDING_GATE",
+          "id": "G_B4_S"
+        },
+        "required": true,
+        "role": "PRIMARY",
+        "phase2_connection_id": "CONN_B3_B4"
+      },
+      {
+        "connection_id": "ROAD_B4_B2",
+        "source": {
+          "kind": "BUILDING_GATE",
+          "id": "G_B4_S"
+        },
+        "target": {
+          "kind": "BUILDING_GATE",
+          "id": "G_B2_E"
+        },
+        "required": true,
+        "role": "PRIMARY",
+        "phase2_connection_id": "CONN_B4_B2"
+      },
+      {
+        "connection_id": "ROAD_MAIN_B1",
+        "source": {
+          "kind": "SITE_ENTRANCE",
+          "id": "SITE_MAIN"
+        },
+        "target": {
+          "kind": "BUILDING_GATE",
+          "id": "G_B1_W"
+        },
+        "required": true,
+        "role": "PRIMARY"
+      },
+      {
+        "connection_id": "ROAD_B2_SECONDARY",
+        "source": {
+          "kind": "BUILDING_GATE",
+          "id": "G_B2_E"
+        },
+        "target": {
+          "kind": "SITE_ENTRANCE",
+          "id": "SITE_SECONDARY"
+        },
+        "required": true,
+        "role": "PRIMARY"
+      },
+      {
+        "connection_id": "ROAD_SECONDARY_MAIN_REDUNDANCY",
+        "source": {
+          "kind": "SITE_ENTRANCE",
+          "id": "SITE_SECONDARY"
+        },
+        "target": {
+          "kind": "SITE_ENTRANCE",
+          "id": "SITE_MAIN"
+        },
+        "required": true,
+        "role": "REDUNDANCY"
+      }
+    ],
+    "requirements": {
+      "minimum_cycle_count": 1
+    },
+    "metadata": {
+      "case_id": "GC_ROAD_001"
+    }
+  },
+  "road_problem_template": {
+    "schema_version": "sc-tse-road-v0.1.0",
+    "problem_id": "GC_ROAD_001",
+    "coordinate_frame": {
+      "frame_id": "SC_TSE_CARTESIAN_RH",
+      "handedness": "RIGHT",
+      "z_axis": "UP",
+      "length_unit": "m"
+    },
+    "site": {
+      "site_id": "SITE_GC_ROAD_001",
+      "boundary": [
+        [
+          0,
+          0
+        ],
+        [
+          220,
+          0
+        ],
+        [
+          220,
+          160
+        ],
+        [
+          0,
+          160
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    "buildings": [
+      {
+        "block_id": "B1_PRODUCTION",
+        "footprint": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "block_id": "B2_WAREHOUSE",
+        "footprint": [
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      },
+      {
+        "block_id": "B3_ADMIN",
+        "footprint": [
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "block_id": "B4_UTILITY",
+        "footprint": [
+          [
+            6,
+            0
+          ],
+          [
+            7,
+            0
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            6,
+            0
+          ]
+        ]
+      }
+    ],
+    "road_edge_overrides": [],
+    "requirements": {
+      "closed_loop": true,
+      "enclosed_block_ids": [],
+      "connection_points": []
+    },
+    "design_elevation": {
+      "method": "DESIGN_PLANE",
+      "datum_id": "GC_ROAD_001_DATUM",
+      "origin_xy": [
+        0,
+        0
+      ],
+      "origin_z_m": 100,
+      "gradient_x": 0.002,
+      "gradient_y": 0.001,
+      "source_ref": "synthetic:GC_ROAD_001"
+    },
+    "metadata": {
+      "case_id": "GC_ROAD_001",
+      "not_survey_data": true
+    }
+  },
+  "provenance": {
+    "source": "scripts/action/development/scripts/sc_tse/staging/GC_ROAD_001/fixtures",
+    "synthetic": true,
+    "sha256": {
+      "canonical_case.json": "6371895121e7172512f97c5b80d064f24bafd6339185a65a444c172803c568c9",
+      "road_graph_request.json": "987f2fe18929bebc61c2807021679ddf6f4b6077d411a96447736616b0dde992",
+      "road_problem_template.json": "a8aea8d3bbd6da497ff4870913a974c8ffceb9c4fe8b6927bb5b1e2071b07d1b"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_elevation_binding_config_v0001.schema.json",
+  "title": "SC-TSE Elevation Binding Configuration v0001",
+  "type": "object",
+  "required": [
+    "config_version",
+    "source_class_mapping",
+    "source_precedence",
+    "value_classification_mapping",
+    "equivalent_value_tolerance_m",
+    "allowed_semantics",
+    "allowed_references",
+    "statuses"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "config_version": {"const": "v0001"},
+    "source_class_mapping": {"type": "object"},
+    "source_precedence": {"type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true},
+    "value_classification_mapping": {"type": "object"},
+    "equivalent_value_tolerance_m": {"type": "number", "minimum": 0, "maximum": 0.001},
+    "allowed_semantics": {"const": ["EXISTING_GROUND", "VERTICAL_CONTROL"]},
+    "allowed_references": {"const": ["MSL"]},
+    "statuses": {"const": ["BOUND", "AMBIGUOUS_ELEVATION_BINDING", "UNAVAILABLE_ELEVATION_BINDING"]}
+  }
+}

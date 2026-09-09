@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc-tse-road-access-result-v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "execution_status", "evaluation_status", "problem_id", "access_network_id", "road_topology", "access_connections", "missing_required_access_ids", "failure_evidence", "source_refs", "scope", "result_hash", "observability"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-road-access-result-v0.1.0"},
+    "record_type": {"const": "RoadAccessRun"},
+    "execution_status": {"const": "COMPLETED"},
+    "evaluation_status": {"enum": ["PASS", "FAIL"]},
+    "problem_id": {"type": "string", "minLength": 1},
+    "access_network_id": {"type": "string", "minLength": 1},
+    "road_topology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relation_type", "network_id", "status", "connected_component_count", "cycle_count", "closed", "width_m", "minimum_centerline_radius_m", "vertical_status"],
+      "properties": {
+        "relation_type": {"const": "Road–RoadTopology"},
+        "network_id": {"type": "string", "minLength": 1},
+        "status": {"enum": ["SATISFIED", "VIOLATED"]},
+        "connected_component_count": {"type": ["integer", "null"], "minimum": 0},
+        "cycle_count": {"type": "integer", "minimum": 0},
+        "closed": {"type": "boolean"},
+        "width_m": {"type": "number", "exclusiveMinimum": 0},
+        "minimum_centerline_radius_m": {"type": ["number", "null"], "minimum": 0},
+        "vertical_status": {"type": "string", "minLength": 1}
+      }
+    },
+    "access_connections": {"type": "array", "items": {"$ref": "#/$defs/access_result"}},
+    "missing_required_access_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "failure_evidence": {"type": "array", "items": {"$ref": "#/$defs/failure"}},
+    "source_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["road_problem_hash", "road_candidate_fingerprint", "connectivity_result_hash", "phase2_problem_hash", "access_request_hash", "config_hash"],
+      "properties": {
+        "road_problem_hash": {"$ref": "#/$defs/hash"},
+        "road_candidate_fingerprint": {"$ref": "#/$defs/hash"},
+        "connectivity_result_hash": {"$ref": "#/$defs/hash"},
+        "phase2_problem_hash": {"$ref": "#/$defs/hash"},
+        "access_request_hash": {"$ref": "#/$defs/hash"},
+        "config_hash": {"$ref": "#/$defs/hash"}
+      }
+    },
+    "scope": {"const": "EXPLICIT_ACCESS_CONNECTION_VALIDATION_WITHOUT_PATH_GENERATION"},
+    "result_hash": {"$ref": "#/$defs/hash"},
+    "observability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_ms", "access_count", "required_count", "failure_count"],
+      "properties": {
+        "total_ms": {"type": "number", "minimum": 0},
+        "access_count": {"type": "integer", "minimum": 0},
+        "required_count": {"type": "integer", "minimum": 0},
+        "failure_count": {"type": "integer", "minimum": 0}
+      }
+    }
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "point": {"type": "array", "prefixItems": [{"type": "number"}, {"type": "number"}], "items": false, "minItems": 2, "maxItems": 2},
+    "failure": {
+      "type": "object", "additionalProperties": false, "required": ["code", "access_id"],
+      "properties": {"code": {"type": "string", "minLength": 1}, "access_id": {"type": ["string", "null"]}}
+    },
+    "check": {
+      "type": "object", "additionalProperties": false, "required": ["check_id", "status", "observed", "required"],
+      "properties": {"check_id": {"type": "string", "minLength": 1}, "status": {"enum": ["SATISFIED", "VIOLATED"]}, "observed": {}, "required": {}}
+    },
+    "access_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["access_id", "relation_type", "required", "status", "source", "target", "driveway", "checks", "source_request_hash"],
+      "properties": {
+        "access_id": {"type": "string", "minLength": 1},
+        "relation_type": {"enum": ["Road–SiteEntrance", "Road–BuildingGate"]},
+        "required": {"type": "boolean"},
+        "status": {"enum": ["CONNECTED", "NOT_CONNECTED"]},
+        "source": {"type": "object"},
+        "target": {"type": "object"},
+        "driveway": {"type": "object"},
+        "checks": {"type": "array", "items": {"$ref": "#/$defs/check"}},
+        "source_request_hash": {"$ref": "#/$defs/hash"}
+      }
+    }
+  }
+}

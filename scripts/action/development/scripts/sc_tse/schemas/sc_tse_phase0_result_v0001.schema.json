@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_phase0_result_v0001.schema.json",
+  "title": "SC-TSE Phase 0 Result v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mode", "problem_id", "execution_status", "solve_status", "solution_quality", "geometry_validations", "geometry_relations", "diagnostics", "evidence", "solver_metadata"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-phase0-result-v0.1.0"},
+    "mode": {"enum": ["RUN", "DRY_RUN", "ERROR"]},
+    "problem_id": {"type": ["string", "null"]},
+    "execution_status": {"enum": ["COMPLETED", "INTERRUPTED", "ERROR"]},
+    "solve_status": {"enum": ["FEASIBLE", "INFEASIBLE", "UNRESOLVED", "NOT_EVALUATED"]},
+    "solution_quality": {"enum": ["GOOD", "ACCEPTABLE", "POOR", "UNKNOWN", "N/A"]},
+    "geometry_validations": {"type": "array", "items": {"type": "object"}},
+    "geometry_relations": {"type": "array", "items": {"type": "object"}},
+    "diagnostics": {"type": "object"},
+    "evidence": {"type": "array", "items": {"type": "object"}},
+    "solver_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy", "proof_capability", "phase"],
+      "properties": {
+        "strategy": {"type": ["string", "null"]},
+        "proof_capability": {"enum": ["NONE", "BOUNDED", "COMPLETE_FOR_PROBLEM_CLASS"]},
+        "phase": {"const": "PHASE_0"}
+      }
+    }
+  }
+}

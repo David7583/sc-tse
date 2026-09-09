@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_terrain_evidence_result_v0001.schema.json",
+  "title": "SC-TSE Terrain Evidence Import Result v0001",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "record_type",
+    "execution_status",
+    "import_status",
+    "source_package",
+    "external_source",
+    "coordinate_frame",
+    "evidence",
+    "region_contexts",
+    "statistics",
+    "diagnostics",
+    "config_hash",
+    "scope",
+    "observability"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "sc-tse-terrain-evidence-v0.1.0"},
+    "record_type": {"const": "TerrainEvidenceImportRun"},
+    "execution_status": {"const": "COMPLETED"},
+    "import_status": {"const": "COMPLETE"},
+    "source_package": {
+      "type": "object",
+      "required": ["schema_version", "test_case_id", "package_sha256", "package_hash"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {"type": "string"},
+        "test_case_id": {"type": "string"},
+        "package_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "package_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "external_source": {
+      "type": "object",
+      "required": ["package_source_type", "terrain_source_type", "source_file", "declared_source_sha256", "extraction_method", "verification_status"],
+      "additionalProperties": false,
+      "properties": {
+        "package_source_type": {"type": "string"},
+        "terrain_source_type": {"const": "DXF"},
+        "source_file": {"type": "string"},
+        "declared_source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "extraction_method": {"type": "string"},
+        "verification_status": {"const": "DECLARED_SOURCE_NOT_LOCALLY_VERIFIED"}
+      }
+    },
+    "coordinate_frame": {"type": "object"},
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "evidence_id", "evidence_type", "source_object_id", "semantic", "value_m",
+          "reference", "mode", "scope", "source_ref", "source_kind", "geometry",
+          "geometry_hash", "surface_eligible", "provenance", "evidence_hash"
+        ],
+        "properties": {
+          "evidence_id": {"type": "string", "pattern": "^terrain-evidence-[a-f0-9]{24}$"},
+          "value_m": {"type": "number"},
+          "geometry_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "surface_eligible": {"type": "boolean"},
+          "evidence_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "region_contexts": {"type": "array", "minItems": 1},
+    "statistics": {
+      "type": "object",
+      "required": [
+        "evidence_count", "surface_eligible_count", "contour_count", "survey_control_point_count",
+        "contour_vertex_count", "elevation_min_m", "elevation_max_m", "layer_stats"
+      ]
+    },
+    "diagnostics": {"type": "array"},
+    "config_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "scope": {"const": "TERRAIN_EVIDENCE_IMPORT_ONLY_NO_SURFACE_INTERPOLATION"},
+    "observability": {
+      "type": "object",
+      "required": ["total_ms", "evidence_count", "contour_vertex_count"],
+      "properties": {"total_ms": {"type": "number", "minimum": 0}}
+    }
+  }
+}

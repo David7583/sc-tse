@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_terrain_evidence_config_v0001.schema.json",
+  "title": "SC-TSE Terrain Evidence Import Configuration v0001",
+  "type": "object",
+  "required": [
+    "config_version",
+    "accepted_package_versions",
+    "required_contour_layers",
+    "expected_contour_entity_type",
+    "semantic_mapping",
+    "source_kind_mapping",
+    "reference_mapping",
+    "limits",
+    "validation"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "config_version": {"const": "v0001"},
+    "accepted_package_versions": {"const": ["sc-tse-terrain-test-v0.2.0"]},
+    "required_contour_layers": {"const": ["C-TOPO-MINR", "C-TOPO-MAJR"]},
+    "expected_contour_entity_type": {"const": "LWPOLYLINE"},
+    "semantic_mapping": {
+      "const": {
+        "EXISTING_GROUND_CONTOUR_ELEVATION": "EXISTING_GROUND",
+        "SURVEY_CONTROL_ELEVATION": "VERTICAL_CONTROL"
+      }
+    },
+    "source_kind_mapping": {
+      "const": {
+        "DXF_ENTITY_ELEVATION": "DIRECT_SOURCE",
+        "DRAWING_TABLE": "DIRECT_SOURCE"
+      }
+    },
+    "reference_mapping": {"const": {"MSL": "MSL"}},
+    "limits": {
+      "type": "object",
+      "required": ["max_contours", "max_vertices_per_contour", "max_total_vertices", "max_regions"],
+      "additionalProperties": false,
+      "properties": {
+        "max_contours": {"type": "integer", "minimum": 1, "maximum": 100000},
+        "max_vertices_per_contour": {"type": "integer", "minimum": 1, "maximum": 1000000},
+        "max_total_vertices": {"type": "integer", "minimum": 1, "maximum": 10000000},
+        "max_regions": {"type": "integer", "minimum": 1, "maximum": 10000}
+      }
+    },
+    "validation": {
+      "const": {
+        "strict_declared_statistics": true,
+        "require_simple_contours": true,
+        "require_explicit_closure": true
+      }
+    }
+  }
+}

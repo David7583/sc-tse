@@ -1,0 +1,8 @@
+{
+  "name": "sc-tse-integration-mvp-tests",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Optional browser acceptance tests; not required to run the application",
+  "scripts": {"test": "node tests/test_integration_browser_v0001.cjs"},
+  "devDependencies": {"playwright": "1.62.1"}
+}

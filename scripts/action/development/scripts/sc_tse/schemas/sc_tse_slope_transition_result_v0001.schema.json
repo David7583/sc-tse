@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_slope_transition_result_v0001.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "execution_status", "evaluation_status", "problem_id", "problem_hash", "slope_type", "classification", "ratio_horizontal_to_vertical", "design_elevation_m", "slope_footprint", "daylight_line", "plan_area_m2", "slope_surface_area_m2", "boundary_samples", "conflicts", "summary", "source_refs", "not_evaluated_items", "scope", "result_hash", "observability"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-slope-transition-result-v0.1.0"},
+    "record_type": {"const": "SlopeTransitionRun"},
+    "execution_status": {"const": "COMPLETED"},
+    "evaluation_status": {"enum": ["COMPLETE", "PARTIAL", "NOT_EVALUATED"]},
+    "problem_id": {"type": "string", "minLength": 1},
+    "problem_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "slope_type": {"enum": ["CUT_SLOPE", "FILL_SLOPE", "FIXED_RATIO_SLOPE"]},
+    "classification": {"enum": ["CUT", "FILL", "MIXED", "NEUTRAL"]},
+    "ratio_horizontal_to_vertical": {"type": "number", "exclusiveMinimum": 0},
+    "design_elevation_m": {"type": "number"},
+    "slope_footprint": {"type": "object"},
+    "daylight_line": {"type": "object"},
+    "plan_area_m2": {"type": "number", "minimum": 0},
+    "slope_surface_area_m2": {"type": "number", "minimum": 0},
+    "boundary_samples": {"type": "array"},
+    "conflicts": {"type": "array"},
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["boundary_sample_count", "resolved_count", "not_evaluated_count", "conflict_count"],
+      "properties": {
+        "boundary_sample_count": {"type": "integer", "minimum": 0},
+        "resolved_count": {"type": "integer", "minimum": 0},
+        "not_evaluated_count": {"type": "integer", "minimum": 0},
+        "conflict_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "source_refs": {"type": "object"},
+    "not_evaluated_items": {"type": "array", "items": {"type": "string"}},
+    "scope": {"const": "GEOMETRIC_FIXED_RATIO_SLOPE_TERRAIN_TRANSITION_ONLY"},
+    "result_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "observability": {"type": "object"}
+  }
+}

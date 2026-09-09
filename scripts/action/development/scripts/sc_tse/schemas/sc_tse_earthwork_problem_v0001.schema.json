@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_earthwork_problem_v0001.schema.json",
+  "title": "SC-TSE Earthwork Problem v0001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "problem_id", "coordinate_frame", "existing_surface", "design_surface", "design_parameter", "geometry_context", "source_refs", "config_hash", "problem_hash"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-earthwork-problem-v0.1.0"},
+    "record_type": {"const": "EarthworkProblem"},
+    "problem_id": {"type": "string", "minLength": 1},
+    "coordinate_frame": {"type": "object"},
+    "existing_surface": {"type": "object"},
+    "design_surface": {"type": "object"},
+    "design_parameter": {"type": "object"},
+    "geometry_context": {"type": "object"},
+    "source_refs": {"type": "object"},
+    "config_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "problem_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

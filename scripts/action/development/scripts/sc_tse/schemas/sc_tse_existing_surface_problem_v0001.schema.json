@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_existing_surface_problem_v0001.schema.json",
+  "title": "SC-TSE Existing Surface Problem v0001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "problem_id", "source_binding", "coordinate_frame", "surface_sources", "problem_hash"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-existing-surface-problem-v0.1.0"},
+    "record_type": {"const": "ExistingSurfaceProblem"},
+    "problem_id": {"type": "string", "minLength": 1},
+    "source_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["problem_id", "problem_hash", "binding_result_hash", "test_case_id", "package_sha256"],
+      "properties": {
+        "problem_id": {"type": "string", "minLength": 1},
+        "problem_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "binding_result_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "test_case_id": {"type": "string", "minLength": 1},
+        "package_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "coordinate_frame": {"type": "object"},
+    "surface_sources": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["geometry_ref", "geometry", "geometry_hash", "geometry_source", "semantic", "reference", "value_m", "value_classification", "selected_evidence_id", "supporting_evidence_ids", "elevation_sources"],
+        "properties": {
+          "geometry_ref": {"type": "string", "minLength": 1},
+          "geometry": {"type": "object"},
+          "geometry_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "geometry_source": {"type": "object"},
+          "semantic": {"const": "EXISTING_GROUND"},
+          "reference": {"const": "MSL"},
+          "value_m": {"type": "number"},
+          "value_classification": {"type": "string", "minLength": 1},
+          "selected_evidence_id": {"type": "string", "minLength": 1},
+          "supporting_evidence_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "elevation_sources": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+        }
+      }
+    },
+    "problem_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

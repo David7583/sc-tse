@@ -1,0 +1,803 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Additive SC-TSE Minimal Optimization Foundation records v0001",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Candidate"
+    },
+    {
+      "$ref": "#/$defs/MetricResult"
+    },
+    {
+      "$ref": "#/$defs/CandidateSet"
+    },
+    {
+      "$ref": "#/$defs/SolutionMetricSet"
+    },
+    {
+      "$ref": "#/$defs/EvaluationResult"
+    },
+    {
+      "$ref": "#/$defs/RankingResult"
+    },
+    {
+      "$ref": "#/$defs/OptimizationRun"
+    }
+  ],
+  "$defs": {
+    "Candidate": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "sc-tse-optimization-foundation-v0.1.0"
+        },
+        "record_type": {
+          "const": "Candidate"
+        },
+        "candidate_id": {
+          "type": "string"
+        },
+        "candidate_version": {
+          "type": "string"
+        },
+        "candidate_fingerprint": {
+          "type": "string"
+        },
+        "parent_problem_hash": {
+          "type": "string"
+        },
+        "comparison_context": {
+          "type": "object",
+          "properties": {
+            "parent_problem_hash": {
+              "type": "string"
+            },
+            "phase1_config_hash": {
+              "type": "string"
+            },
+            "scope": {
+              "const": "LAYOUT_GEOMETRY"
+            }
+          },
+          "required": [
+            "parent_problem_hash",
+            "phase1_config_hash",
+            "scope"
+          ]
+        },
+        "solver_provenance": {
+          "type": "object"
+        },
+        "solver_config_hash": {
+          "type": "string"
+        },
+        "execution_status": {
+          "enum": [
+            "COMPLETED",
+            "INTERRUPTED",
+            "ERROR"
+          ]
+        },
+        "solve_status": {
+          "enum": [
+            "FEASIBLE",
+            "INFEASIBLE",
+            "UNRESOLVED"
+          ]
+        },
+        "solution_quality": {
+          "type": "string"
+        },
+        "layout_candidate": {
+          "type": "object",
+          "properties": {
+            "blocks": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "required": [
+            "blocks"
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_type",
+        "candidate_id",
+        "candidate_version",
+        "candidate_fingerprint",
+        "parent_problem_hash",
+        "comparison_context",
+        "solver_provenance",
+        "solver_config_hash",
+        "execution_status",
+        "solve_status",
+        "solution_quality",
+        "layout_candidate"
+      ]
+    },
+    "MetricResult": {
+      "type": "object",
+      "properties": {
+        "metric_id": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "object",
+          "properties": {
+            "metric_id": {
+              "type": "string"
+            },
+            "metric_version": {
+              "type": "string"
+            },
+            "unit": {
+              "type": "string"
+            },
+            "direction": {
+              "enum": [
+                "MINIMIZE",
+                "MAXIMIZE"
+              ]
+            },
+            "description": {
+              "type": "string"
+            },
+            "provider_id": {
+              "type": "string"
+            },
+            "provider_version": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "metric_id",
+            "metric_version",
+            "unit",
+            "direction",
+            "description",
+            "provider_id",
+            "provider_version"
+          ]
+        },
+        "status": {
+          "enum": [
+            "CALCULATED",
+            "NOT_AVAILABLE",
+            "NOT_APPLICABLE",
+            "CALCULATION_FAILED",
+            "UNRESOLVED",
+            "STALE"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "candidate_fingerprint": {
+          "type": "string"
+        },
+        "calculation_context_hash": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "metric_id",
+        "definition",
+        "status",
+        "value",
+        "unit",
+        "candidate_fingerprint",
+        "calculation_context_hash",
+        "evidence"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "CALCULATED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "number"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "CandidateSet": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "sc-tse-optimization-foundation-v0.1.0"
+        },
+        "record_type": {
+          "const": "CandidateSet"
+        },
+        "candidate_set_id": {
+          "type": "string"
+        },
+        "comparison_context": {
+          "type": "object",
+          "properties": {
+            "parent_problem_hash": {
+              "type": "string"
+            },
+            "phase1_config_hash": {
+              "type": "string"
+            },
+            "scope": {
+              "const": "LAYOUT_GEOMETRY"
+            }
+          },
+          "required": [
+            "parent_problem_hash",
+            "phase1_config_hash",
+            "scope"
+          ]
+        },
+        "generation_config": {
+          "type": "object",
+          "properties": {
+            "max_candidates": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 64
+            }
+          },
+          "required": [
+            "max_candidates"
+          ]
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Candidate"
+          }
+        },
+        "execution_status": {
+          "type": "string"
+        },
+        "solve_status": {
+          "type": "string"
+        },
+        "solution_quality": {
+          "type": "string"
+        },
+        "generation_completeness": {
+          "enum": [
+            "EXHAUSTED",
+            "LIMITED",
+            "PARTIAL"
+          ]
+        },
+        "diagnostics": {
+          "type": "object",
+          "properties": {
+            "termination_reason": {
+              "type": "string"
+            },
+            "candidate_evaluations": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "constraint_evaluations": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "leaf_evaluations": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "search_exhausted": {
+              "type": "boolean"
+            },
+            "proof_capability": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "termination_reason",
+            "candidate_evaluations",
+            "constraint_evaluations",
+            "leaf_evaluations",
+            "search_exhausted",
+            "proof_capability"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_type",
+        "candidate_set_id",
+        "comparison_context",
+        "generation_config",
+        "candidates",
+        "execution_status",
+        "solve_status",
+        "solution_quality",
+        "generation_completeness",
+        "diagnostics",
+        "evidence"
+      ]
+    },
+    "SolutionMetricSet": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "sc-tse-optimization-foundation-v0.1.0"
+        },
+        "record_type": {
+          "const": "SolutionMetricSet"
+        },
+        "candidate_id": {
+          "type": "string"
+        },
+        "candidate_fingerprint": {
+          "type": "string"
+        },
+        "parent_problem_hash": {
+          "type": "string"
+        },
+        "calculation_context": {
+          "type": "object"
+        },
+        "calculation_context_hash": {
+          "type": "string"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MetricResult"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_type",
+        "candidate_id",
+        "candidate_fingerprint",
+        "parent_problem_hash",
+        "calculation_context",
+        "calculation_context_hash",
+        "metrics"
+      ]
+    },
+    "EvaluationResult": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "sc-tse-optimization-foundation-v0.1.0"
+        },
+        "record_type": {
+          "const": "EvaluationResult"
+        },
+        "evaluation_id": {
+          "type": "string"
+        },
+        "candidate_id": {
+          "type": "string"
+        },
+        "candidate_fingerprint": {
+          "type": "string"
+        },
+        "comparison_context": {
+          "type": "object",
+          "properties": {
+            "parent_problem_hash": {
+              "type": "string"
+            },
+            "phase1_config_hash": {
+              "type": "string"
+            },
+            "scope": {
+              "const": "LAYOUT_GEOMETRY"
+            }
+          },
+          "required": [
+            "parent_problem_hash",
+            "phase1_config_hash",
+            "scope"
+          ]
+        },
+        "evaluation_status": {
+          "enum": [
+            "COMPLETE",
+            "PARTIAL",
+            "NOT_EVALUATABLE",
+            "HARD_VIOLATED",
+            "STALE",
+            "FAILED"
+          ]
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "rank": {
+          "type": "null"
+        },
+        "exclusion_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "violation_refs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "metric_contributions": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "effective_metric_set": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evaluation_basis_hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evaluation_completeness": {
+          "type": "object",
+          "properties": {
+            "requested_metric_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "evaluated_metric_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "missing_metrics": {
+              "type": "array",
+              "items": {}
+            },
+            "failed_metrics": {
+              "type": "array",
+              "items": {}
+            },
+            "stale_metrics": {
+              "type": "array",
+              "items": {}
+            }
+          },
+          "required": [
+            "requested_metric_count",
+            "evaluated_metric_count",
+            "missing_metrics",
+            "failed_metrics",
+            "stale_metrics"
+          ]
+        },
+        "canonical_preferences": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "normalization_refs": {
+          "type": "object"
+        },
+        "preference_profile_ref": {
+          "type": "object"
+        },
+        "evaluation_strategy_ref": {
+          "type": "object"
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_type",
+        "evaluation_id",
+        "candidate_id",
+        "candidate_fingerprint",
+        "comparison_context",
+        "evaluation_status",
+        "score",
+        "rank",
+        "exclusion_reason",
+        "violation_refs",
+        "metric_contributions",
+        "effective_metric_set",
+        "evaluation_basis_hash",
+        "evaluation_completeness",
+        "canonical_preferences",
+        "normalization_refs",
+        "preference_profile_ref",
+        "evaluation_strategy_ref",
+        "diagnostics"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "evaluation_status": {
+                "enum": [
+                  "COMPLETE",
+                  "PARTIAL"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1.000000000000001
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "score": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "RankingResult": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "sc-tse-optimization-foundation-v0.1.0"
+        },
+        "record_type": {
+          "const": "RankingResult"
+        },
+        "ranking_id": {
+          "type": "string"
+        },
+        "comparison_context": {
+          "type": "object",
+          "properties": {
+            "parent_problem_hash": {
+              "type": "string"
+            },
+            "phase1_config_hash": {
+              "type": "string"
+            },
+            "scope": {
+              "const": "LAYOUT_GEOMETRY"
+            }
+          },
+          "required": [
+            "parent_problem_hash",
+            "phase1_config_hash",
+            "scope"
+          ]
+        },
+        "comparison_status": {
+          "enum": [
+            "COMPARABLE",
+            "NOT_COMPARABLE"
+          ]
+        },
+        "candidate_set_ref": {
+          "type": "string"
+        },
+        "ordered_candidate_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rank_entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "candidate_id": {
+                "type": "string"
+              },
+              "score": {
+                "type": "number"
+              },
+              "rank": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "required": [
+              "candidate_id",
+              "score",
+              "rank"
+            ]
+          }
+        },
+        "ties": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "excluded_candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "candidate_id": {
+                "type": "string"
+              },
+              "score": {
+                "type": "null"
+              },
+              "rank": {
+                "type": "null"
+              },
+              "exclusion_reason": {
+                "type": "string"
+              },
+              "evaluation_result_ref": {
+                "type": "string"
+              },
+              "violation_refs": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "required": [
+              "candidate_id",
+              "score",
+              "rank",
+              "exclusion_reason",
+              "evaluation_result_ref",
+              "violation_refs"
+            ]
+          }
+        },
+        "evaluation_result_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ranking_status": {
+          "enum": [
+            "COMPLETE",
+            "PARTIAL",
+            "NOT_EVALUATABLE",
+            "DECLARED_BASIS_DIFFERENCE"
+          ]
+        },
+        "metadata": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_type",
+        "ranking_id",
+        "comparison_context",
+        "comparison_status",
+        "candidate_set_ref",
+        "ordered_candidate_ids",
+        "rank_entries",
+        "ties",
+        "excluded_candidates",
+        "evaluation_result_refs",
+        "ranking_status",
+        "metadata"
+      ]
+    },
+    "OptimizationRun": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": "sc-tse-optimization-foundation-v0.1.0"
+        },
+        "record_type": {
+          "const": "OptimizationRun"
+        },
+        "execution_status": {
+          "type": "string"
+        },
+        "solve_status": {
+          "type": "string"
+        },
+        "solution_quality": {
+          "type": "string"
+        },
+        "problem": {
+          "type": "object"
+        },
+        "configuration": {
+          "type": "object"
+        },
+        "candidate_set": {
+          "$ref": "#/$defs/CandidateSet"
+        },
+        "metric_sets": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/SolutionMetricSet"
+          }
+        },
+        "evaluation_results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EvaluationResult"
+          }
+        },
+        "ranking_result": {
+          "$ref": "#/$defs/RankingResult"
+        },
+        "observability": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "record_type",
+        "execution_status",
+        "solve_status",
+        "solution_quality",
+        "problem",
+        "configuration",
+        "candidate_set",
+        "metric_sets",
+        "evaluation_results",
+        "ranking_result",
+        "observability"
+      ]
+    }
+  }
+}

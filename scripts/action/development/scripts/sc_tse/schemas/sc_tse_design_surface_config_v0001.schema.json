@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_design_surface_config_v0001.schema.json",
+  "title": "SC-TSE Design Surface Config v0001",
+  "type": "object",
+  "required": ["schema_version", "construction_method", "supported_surface_types", "supported_parameter_modes", "overlap_policy", "equivalent_elevation_tolerance_m"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "sc-tse-design-surface-config-v0.1.0"},
+    "construction_method": {"const": "REGION_PARAMETERIZED_CONSTANT_ELEVATION_V1"},
+    "supported_surface_types": {"const": ["CONSTANT_ELEVATION_PAD"]},
+    "supported_parameter_modes": {"const": ["FREE"]},
+    "overlap_policy": {"const": "REPORT_AMBIGUITY_NO_OVERRIDE"},
+    "equivalent_elevation_tolerance_m": {"type": "number", "minimum": 0}
+  }
+}

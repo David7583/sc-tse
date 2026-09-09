@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SC-TSE Multi Elevation Problem v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "problem_id", "objects", "vertical_nodes", "relations", "source_refs", "config_hash", "problem_hash"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-multi-elevation-problem-v0.1.0"},
+    "record_type": {"const": "MultiElevationProblem"},
+    "problem_id": {"type": "string", "minLength": 1},
+    "objects": {"type": "array", "minItems": 1},
+    "vertical_nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["node_id", "object_id", "semantic", "resolution_query_id", "scope", "status", "reason", "value_m", "reference", "datum_id", "selected_attribute_id", "evidence_attribute_ids"]
+      }
+    },
+    "relations": {"type": "array", "minItems": 1},
+    "source_refs": {"type": "object"},
+    "config_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "problem_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

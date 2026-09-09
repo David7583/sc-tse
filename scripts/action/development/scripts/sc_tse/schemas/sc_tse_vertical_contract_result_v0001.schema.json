@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_vertical_contract_result_v0001.schema.json",
+  "title": "SC-TSE VerticalContractRun v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_type",
+    "execution_status",
+    "problem_id",
+    "problem_hash",
+    "config_hash",
+    "vertical_attributes",
+    "resolutions",
+    "diagnostics",
+    "scope",
+    "observability"
+  ],
+  "properties": {
+    "schema_version": {"const": "sc-tse-vertical-resolution-v0.1.0"},
+    "record_type": {"const": "VerticalContractRun"},
+    "execution_status": {"const": "COMPLETED"},
+    "problem_id": {"type": "string", "minLength": 1},
+    "problem_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "config_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "vertical_attributes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/vertical_attribute"}
+    },
+    "resolutions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "query_id",
+          "calculation_context",
+          "semantic",
+          "scope",
+          "reference",
+          "datum_id",
+          "status",
+          "reason",
+          "value_m",
+          "selected_attribute_id",
+          "source_ref",
+          "mode",
+          "evidence_attribute_ids"
+        ],
+        "properties": {
+          "query_id": {"type": "string", "minLength": 1},
+          "calculation_context": {"type": "string", "minLength": 1},
+          "semantic": {"type": "string", "minLength": 1},
+          "scope": {"$ref": "#/$defs/scope"},
+          "reference": {"type": "string", "minLength": 1},
+          "datum_id": {"type": ["string", "null"]},
+          "status": {
+            "enum": ["RESOLVED", "AMBIGUOUS_VERTICAL_CONTEXT", "UNAVAILABLE_INPUT"]
+          },
+          "reason": {"type": ["string", "null"]},
+          "value_m": {"type": ["number", "null"]},
+          "selected_attribute_id": {"type": ["string", "null"]},
+          "source_ref": {"type": ["string", "null"]},
+          "mode": {"type": ["string", "null"]},
+          "evidence_attribute_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          }
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"status": {"const": "RESOLVED"}}},
+            "then": {
+              "properties": {
+                "reason": {"type": "null"},
+                "value_m": {"type": "number"},
+                "selected_attribute_id": {"type": "string"},
+                "source_ref": {"type": "string"},
+                "mode": {"type": "string"}
+              }
+            },
+            "else": {
+              "properties": {
+                "reason": {"type": "string"},
+                "value_m": {"type": "null"},
+                "selected_attribute_id": {"type": "null"},
+                "source_ref": {"type": "null"},
+                "mode": {"type": "null"}
+              }
+            }
+          }
+        ]
+      }
+    },
+    "diagnostics": {"type": "array"},
+    "scope": {"const": "VERTICAL_SEMANTIC_CONTRACT_RESOLUTION_ONLY"},
+    "observability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_ms", "attribute_count", "query_count"],
+      "properties": {
+        "total_ms": {"type": "number", "minimum": 0},
+        "attribute_count": {"type": "integer", "minimum": 1},
+        "query_count": {"type": "integer", "minimum": 1}
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "scope": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "target_id", "position_xy"],
+          "properties": {
+            "type": {"const": "POINT"},
+            "target_id": {"$ref": "#/$defs/identifier"},
+            "selector_id": {"$ref": "#/$defs/identifier"},
+            "position_xy": {
+              "type": "array",
+              "prefixItems": [{"type": "number"}, {"type": "number"}],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "target_id", "selector_id"],
+          "properties": {
+            "type": {"const": "EDGE"},
+            "target_id": {"$ref": "#/$defs/identifier"},
+            "selector_id": {"$ref": "#/$defs/identifier"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "target_id"],
+          "properties": {
+            "type": {"enum": ["FACE", "OBJECT", "REGION"]},
+            "target_id": {"$ref": "#/$defs/identifier"}
+          }
+        }
+      ]
+    },
+    "value_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "reference_id"],
+      "properties": {
+        "provider": {"$ref": "#/$defs/identifier"},
+        "reference_id": {"$ref": "#/$defs/identifier"}
+      }
+    },
+    "vertical_attribute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attribute_id",
+        "semantic",
+        "scope",
+        "mode",
+        "reference",
+        "source_ref",
+        "source_kind",
+        "priority",
+        "derived_from"
+      ],
+      "properties": {
+        "attribute_id": {"$ref": "#/$defs/identifier"},
+        "semantic": {"$ref": "#/$defs/identifier"},
+        "value_m": {"type": "number"},
+        "value_ref": {"$ref": "#/$defs/value_ref"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "mode": {"enum": ["FIXED", "DERIVED", "SAMPLED", "PROFILE", "SURFACE"]},
+        "reference": {"$ref": "#/$defs/identifier"},
+        "datum_id": {"$ref": "#/$defs/identifier"},
+        "source_ref": {"$ref": "#/$defs/identifier"},
+        "source_kind": {
+          "enum": ["DIRECT_SOURCE", "DERIVED", "INFERRED", "SYNTHETIC", "USER_SUPPLIED"]
+        },
+        "priority": {"type": "integer"},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "derived_from": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/identifier"}
+        },
+        "method_version": {"$ref": "#/$defs/identifier"}
+      },
+      "oneOf": [
+        {"required": ["value_m"], "not": {"required": ["value_ref"]}},
+        {"required": ["value_ref"], "not": {"required": ["value_m"]}}
+      ]
+    }
+  }
+}

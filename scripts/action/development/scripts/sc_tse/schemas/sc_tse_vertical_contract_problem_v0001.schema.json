@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_vertical_contract_problem_v0001.schema.json",
+  "title": "SC-TSE VerticalContractProblem v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "problem_id",
+    "coordinate_frame",
+    "vertical_attributes",
+    "queries",
+    "metadata"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "sc-tse-vertical-contract-v0.1.0"
+    },
+    "problem_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "coordinate_frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "handedness", "z_axis", "length_unit"],
+      "properties": {
+        "frame_id": {"const": "SC_TSE_CARTESIAN_RH"},
+        "handedness": {"const": "RIGHT"},
+        "z_axis": {"const": "UP"},
+        "length_unit": {"const": "m"}
+      }
+    },
+    "vertical_attributes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/vertical_attribute"}
+    },
+    "queries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/query"}
+    },
+    "metadata": {"type": "object"}
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "scope": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "target_id", "position_xy"],
+          "properties": {
+            "type": {"const": "POINT"},
+            "target_id": {"$ref": "#/$defs/identifier"},
+            "selector_id": {"$ref": "#/$defs/identifier"},
+            "position_xy": {
+              "type": "array",
+              "prefixItems": [{"type": "number"}, {"type": "number"}],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "target_id", "selector_id"],
+          "properties": {
+            "type": {"const": "EDGE"},
+            "target_id": {"$ref": "#/$defs/identifier"},
+            "selector_id": {"$ref": "#/$defs/identifier"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "target_id"],
+          "properties": {
+            "type": {"enum": ["FACE", "OBJECT", "REGION"]},
+            "target_id": {"$ref": "#/$defs/identifier"}
+          }
+        }
+      ]
+    },
+    "value_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "reference_id"],
+      "properties": {
+        "provider": {"$ref": "#/$defs/identifier"},
+        "reference_id": {"$ref": "#/$defs/identifier"}
+      }
+    },
+    "vertical_attribute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attribute_id",
+        "semantic",
+        "scope",
+        "mode",
+        "reference",
+        "source_ref",
+        "source_kind"
+      ],
+      "properties": {
+        "attribute_id": {"$ref": "#/$defs/identifier"},
+        "semantic": {"$ref": "#/$defs/identifier"},
+        "value_m": {"type": "number"},
+        "value_ref": {"$ref": "#/$defs/value_ref"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "mode": {"enum": ["FIXED", "DERIVED", "SAMPLED", "PROFILE", "SURFACE"]},
+        "reference": {"$ref": "#/$defs/identifier"},
+        "datum_id": {"$ref": "#/$defs/identifier"},
+        "source_ref": {"$ref": "#/$defs/identifier"},
+        "source_kind": {
+          "enum": ["DIRECT_SOURCE", "DERIVED", "INFERRED", "SYNTHETIC", "USER_SUPPLIED"]
+        },
+        "priority": {"type": "integer", "minimum": -1000000, "maximum": 1000000},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "derived_from": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/identifier"}
+        },
+        "method_version": {"$ref": "#/$defs/identifier"}
+      },
+      "oneOf": [
+        {"required": ["value_m"], "not": {"required": ["value_ref"]}},
+        {"required": ["value_ref"], "not": {"required": ["value_m"]}}
+      ]
+    },
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["query_id", "calculation_context", "semantic", "scope", "reference"],
+      "properties": {
+        "query_id": {"$ref": "#/$defs/identifier"},
+        "calculation_context": {"$ref": "#/$defs/identifier"},
+        "semantic": {"$ref": "#/$defs/identifier"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "reference": {"$ref": "#/$defs/identifier"},
+        "datum_id": {"$ref": "#/$defs/identifier"},
+        "preferred_source_ref": {"$ref": "#/$defs/identifier"}
+      }
+    }
+  }
+}

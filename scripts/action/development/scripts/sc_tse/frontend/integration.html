@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SC-TSE · 空间计算工作台</title><link rel="stylesheet" href="/integration.css"></head>
+<body>
+<header><div class="brand"><span class="brand-mark">S</span><strong>SC-TSE</strong><span class="brand-caption">空间计算工作台</span></div><div class="header-right"><span class="edition">INTEGRATION MVP</span><span class="local-dot"></span><span>本地计算</span></div></header>
+<div class="workspace">
+<aside class="project-panel">
+<div class="section-label">PROJECT / 项目</div><h1 id="projectTitle">载入项目</h1><p class="subtle">二维布局与道路计算</p>
+<label for="caseSelect">内置案例</label><select id="caseSelect"><option value="gc_road_001">GC_ROAD_001 · 四体块场地</option></select><button id="loadCase" class="secondary">载入案例</button>
+<button id="loadFile" class="text-button">打开项目 JSON <span>↗</span></button><input id="projectFile" type="file" accept=".json,application/json" hidden>
+<div class="rule"></div><div class="section-label">OBJECTS / 场地对象</div><div id="objectList" class="object-list" aria-label="场地对象"></div>
+<div class="panel-bottom"><span class="mini-tag">XY + Z</span><p>当前视图：二维平面<br>坐标单位：米 · +Y 向上</p><span id="sourceNote" class="subtle"></span></div>
+</aside>
+<main>
+<div class="canvas-toolbar"><div><span class="section-label">SITE PLAN</span><strong>场地平面</strong></div><span id="geometrySource" class="source-label">明确输入 · 未运行</span><button id="fit" class="icon-button" title="适配场地" aria-label="适配场地">适配视图</button></div>
+<div id="viewport"><svg id="site" role="img" aria-label="场地体块与真实道路中心线"></svg><div class="axis-note">↑ +Y <span>+X →</span></div><div id="canvasNote" class="canvas-note">载入案例后，点击“重新运行”计算完整主链。</div></div>
+<div class="legend"><span><i class="swatch block"></i>体块</span><span><i class="swatch graph"></i>RoadGraph 中心线</span><span><i class="swatch road"></i>Phase4 中心线</span><span class="legend-note">仅显示输入及计算事实</span></div>
+<section class="pipeline-panel"><div class="section-label">WORKFLOW / 完整计算主链</div><ol id="pipeline" aria-label="计算节点状态"></ol></section>
+<div class="metric-strip"><div><span>道路边数</span><strong id="edgeCount">—</strong></div><div><span>独立环数</span><strong id="cycleCount">—</strong></div><div><span>Access 校核</span><strong id="accessStatus">—</strong></div><div><span>本次耗时</span><strong id="elapsed">—</strong></div></div>
+</main>
+<aside class="inspector">
+<div class="section-label">INSPECTOR / 对象属性</div><div class="selected-heading"><h2 id="selectedId">选择体块</h2><span class="mini-tag">BLOCK</span></div><p id="selectedType" class="subtle">点击画布或左侧对象列表</p>
+<form id="coordinateForm"><label for="centerX">center_x <span>m</span></label><input id="centerX" type="number" step="any" min="-10000000" max="10000000" required disabled><label for="centerY">center_y <span>m</span></label><input id="centerY" type="number" step="any" min="-10000000" max="10000000" required disabled></form>
+<p class="input-note">手动坐标作为本次固定输入。修改后，点击按钮执行完整重算。</p><button id="run" class="primary" disabled><span>重新运行</span><span aria-hidden="true">→</span></button>
+<div class="rule"></div><div class="section-label">RUN STATUS / 计算状态</div><div id="status" class="status idle" role="status">未运行</div><p id="statusDescription" class="status-description">等待载入项目。</p>
+<div id="blockers" class="blockers" aria-live="polite"></div>
+<details id="details"><summary>本次计算证据</summary><pre id="evidence">尚无计算结果</pre></details>
+</aside>
+</div><footer><span id="footerStatus">就绪</span><span>Layout → Connectivity → RoadGraph → Phase4 → Access</span></footer>
+<script src="/integration_app_v0001.js" defer></script>
+</body></html>

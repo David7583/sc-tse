@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_design_surface_result_v0001.schema.json",
+  "title": "SC-TSE Design Surface Result v0001",
+  "type": "object",
+  "required": ["schema_version", "record_type", "run_status", "source_problem", "coordinate_frame", "surfaces", "overlaps", "summary", "query_policy", "queries", "surface_collection_hash", "result_hash", "observability"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-design-surface-result-v0.1.0"},
+    "record_type": {"const": "DesignSurfaceRun"},
+    "run_status": {"enum": ["COMPLETED", "COMPLETED_WITH_OVERLAPS"]},
+    "source_problem": {"type": "object"},
+    "coordinate_frame": {"type": "object"},
+    "surfaces": {"type": "array", "minItems": 1},
+    "overlaps": {"type": "array"},
+    "summary": {"type": "object"},
+    "query_policy": {"type": "object"},
+    "queries": {"type": "array"},
+    "surface_collection_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "result_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "observability": {"type": "object"}
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_pad_elevation_optimization_request_v0001.schema.json",
+  "title": "SC-TSE Pad Elevation Optimization Request v0001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "request_id", "design_surface_id", "design_parameter_id", "platform_boundary", "candidate_elevations_m", "earthwork_cell_size_m", "slope", "constraints", "hard_constraints", "road_connection", "objective_weights"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-pad-elevation-optimization-request-v0.1.0"},
+    "record_type": {"const": "PadElevationOptimizationRequest"},
+    "request_id": {"type": "string", "minLength": 1},
+    "design_surface_id": {"type": "string", "minLength": 1},
+    "design_parameter_id": {"type": "string", "minLength": 1},
+    "platform_boundary": {"$ref": "#/$defs/polygon"},
+    "candidate_elevations_m": {"type": "array", "minItems": 1, "items": {"type": "number"}},
+    "earthwork_cell_size_m": {"type": "number", "exclusiveMinimum": 0},
+    "slope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slope_type", "ratio_horizontal_to_vertical", "maximum_search_distance_m"],
+      "properties": {
+        "slope_type": {"enum": ["CUT_SLOPE", "FILL_SLOPE", "FIXED_RATIO_SLOPE"]},
+        "ratio_horizontal_to_vertical": {"type": "number", "exclusiveMinimum": 0},
+        "maximum_search_distance_m": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["redline", "buildings", "roads"],
+      "properties": {
+        "redline": {"$ref": "#/$defs/constraint"},
+        "buildings": {"type": "array", "items": {"$ref": "#/$defs/constraint"}},
+        "roads": {"type": "array", "items": {"$ref": "#/$defs/constraint"}}
+      }
+    },
+    "hard_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["require_complete_earthwork", "require_complete_slope", "max_cut_depth_m", "max_fill_depth_m", "max_spatial_conflict_count", "max_road_connection_penalty_m"],
+      "properties": {
+        "require_complete_earthwork": {"type": "boolean"},
+        "require_complete_slope": {"type": "boolean"},
+        "max_cut_depth_m": {"type": ["number", "null"], "minimum": 0},
+        "max_fill_depth_m": {"type": ["number", "null"], "minimum": 0},
+        "max_spatial_conflict_count": {"type": ["integer", "null"], "minimum": 0},
+        "max_road_connection_penalty_m": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "road_connection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference_elevation_m", "penalty_method"],
+      "properties": {
+        "reference_elevation_m": {"type": "number"},
+        "penalty_method": {"const": "ABSOLUTE_VERTICAL_DIFFERENCE"}
+      }
+    },
+    "objective_weights": {"$ref": "#/$defs/metrics"}
+  },
+  "$defs": {
+    "point": {"type": "array", "prefixItems": [{"type": "number"}, {"type": "number"}], "items": false},
+    "polygon": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/point"}},
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_id", "polygon"],
+      "properties": {"constraint_id": {"type": "string", "minLength": 1}, "polygon": {"$ref": "#/$defs/polygon"}}
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cut_volume_m3", "fill_volume_m3", "net_earthwork_m3", "total_moved_volume_m3", "max_cut_depth_m", "max_fill_depth_m", "slope_footprint_area_m2", "road_connection_penalty_m"],
+      "properties": {
+        "cut_volume_m3": {"type": "number", "minimum": 0},
+        "fill_volume_m3": {"type": "number", "minimum": 0},
+        "net_earthwork_m3": {"type": "number", "minimum": 0},
+        "total_moved_volume_m3": {"type": "number", "minimum": 0},
+        "max_cut_depth_m": {"type": "number", "minimum": 0},
+        "max_fill_depth_m": {"type": "number", "minimum": 0},
+        "slope_footprint_area_m2": {"type": "number", "minimum": 0},
+        "road_connection_penalty_m": {"type": "number", "minimum": 0}
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "config_version": "sc-tse-phase2-config-v0.1.0",
+  "contract_versions": {
+    "connectivity_problem": "sc-tse-connectivity-problem-v0.1.0",
+    "connectivity_result": "sc-tse-connectivity-result-v0.1.0"
+  },
+  "internal_coordinate_frame": {"frame_id": "SC_TSE_CARTESIAN_RH", "handedness": "RIGHT", "z_axis": "UP", "length_unit": "m"},
+  "numerical_tolerance": {"linear_m": 0.001, "area_m2": 0.0001, "z_m": 0.001},
+  "solver_capability": {
+    "allowed_path_strategies": ["GRID_A_STAR_4_NEIGHBOR"],
+    "max_grid_expansions_limit": 100000,
+    "max_grid_cells_limit": 250000
+  },
+  "runtime": {"max_problem_bytes": 10485760}
+}

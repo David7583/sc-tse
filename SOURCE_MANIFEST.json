@@ -1,0 +1,634 @@
+{
+  "scope": "Integration MVP only",
+  "files": [
+    {
+      "path": "scripts/action/development/scripts/sc_tse/run_sc_tse_orchestrator_v0004.py",
+      "source_sha256": "edb256901b62543e7a3edec26b2705879611fb5440b2dd5415a64804dd068ede",
+      "release_sha256": "edb256901b62543e7a3edec26b2705879611fb5440b2dd5415a64804dd068ede",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_basic_road_network_generator_v0001.py",
+      "source_sha256": "29bf599690d448ba636238d8b5e0ef2e0264a8c93f99b2ff452e4088b50dc05a",
+      "release_sha256": "29bf599690d448ba636238d8b5e0ef2e0264a8c93f99b2ff452e4088b50dc05a",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_connectivity_engine_v0001.py",
+      "source_sha256": "854c9f6751da8d4d9c02da00bd0c6d2cb757f045c13c36eabf1f1dea3b08c4be",
+      "release_sha256": "854c9f6751da8d4d9c02da00bd0c6d2cb757f045c13c36eabf1f1dea3b08c4be",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_geometry_v0001.py",
+      "source_sha256": "2f4d62ec08a44f4ffd64120b212971470b051e5b6452435f1b4b64406d978a79",
+      "release_sha256": "2f4d62ec08a44f4ffd64120b212971470b051e5b6452435f1b4b64406d978a79",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_contracts_v0001.py",
+      "source_sha256": "f29b02dec82719405a0bc83bc0da55de9bc6e0be285be2eabeca3e0bff6c9242",
+      "release_sha256": "f29b02dec82719405a0bc83bc0da55de9bc6e0be285be2eabeca3e0bff6c9242",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_connectivity_contracts_v0001.py",
+      "source_sha256": "4b7b8dc0ec6d59e9f30e47bf1e3862e8e2ba82d20435d00c4cad6587d2706d4e",
+      "release_sha256": "4b7b8dc0ec6d59e9f30e47bf1e3862e8e2ba82d20435d00c4cad6587d2706d4e",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/run_sc_tse_road_graph_phase4_v0001.py",
+      "source_sha256": "a1d27f8cd05ba99e0ef040d14129233e5d4aba70e77c685acb0641abb5c0054f",
+      "release_sha256": "a1d27f8cd05ba99e0ef040d14129233e5d4aba70e77c685acb0641abb5c0054f",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/run_sc_tse_phase4_v0001.py",
+      "source_sha256": "fe7b5636845bbba2da8b09e643519b0af6428ca6d324f9a3fb14cccc08711958",
+      "release_sha256": "fe7b5636845bbba2da8b09e643519b0af6428ca6d324f9a3fb14cccc08711958",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/run_sc_tse_hardening_v0001.py",
+      "source_sha256": "633ff2e43dda3d60cfbc675a4bc2964ee4229a3f66f76b3cb97ce72c3272f07c",
+      "release_sha256": "633ff2e43dda3d60cfbc675a4bc2964ee4229a3f66f76b3cb97ce72c3272f07c",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_hardening_compute_v0001.py",
+      "source_sha256": "94cf3fb07ac1c69f6fe61cfbc83d5671fd8a407540bd68b84a9da23aaf27d3ae",
+      "release_sha256": "94cf3fb07ac1c69f6fe61cfbc83d5671fd8a407540bd68b84a9da23aaf27d3ae",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_constraint_evaluator_v0001.py",
+      "source_sha256": "d4a662c277432e7b7f7e324bbefa4f37d6c8bcf8f05b502ed62d239bea12cfae",
+      "release_sha256": "d4a662c277432e7b7f7e324bbefa4f37d6c8bcf8f05b502ed62d239bea12cfae",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_layout_contracts_v0001.py",
+      "source_sha256": "20fe5cf9f1d6161f8a471a406be8ed72944766f07beb60c183f65f392ebe0602",
+      "release_sha256": "20fe5cf9f1d6161f8a471a406be8ed72944766f07beb60c183f65f392ebe0602",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_basic_layout_solver_v0001.py",
+      "source_sha256": "b6687c4c9bae5f95332687d821274b9cb0a63e21b7080a44196b2c9ce1f717ed",
+      "release_sha256": "b6687c4c9bae5f95332687d821274b9cb0a63e21b7080a44196b2c9ce1f717ed",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/run_sc_tse_phase3_v0001.py",
+      "source_sha256": "dad872d66e4f629904c7ba0c5d455e712f39e8b3cb059411d41576cf38a4184b",
+      "release_sha256": "dad872d66e4f629904c7ba0c5d455e712f39e8b3cb059411d41576cf38a4184b",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_feedback_generator_v0001.py",
+      "source_sha256": "532b585cef76d04e5f0aa74faede9bd7fbaf7983ed1f8905019e126a0f886795",
+      "release_sha256": "532b585cef76d04e5f0aa74faede9bd7fbaf7983ed1f8905019e126a0f886795",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_feedback_contracts_v0001.py",
+      "source_sha256": "757a655f97bfe893a314503d3511b9af211e232965f26e1fe4f5e6ddc123545e",
+      "release_sha256": "757a655f97bfe893a314503d3511b9af211e232965f26e1fe4f5e6ddc123545e",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/run_sc_tse_phase2_v0001.py",
+      "source_sha256": "1d5531d9bad9d0dc4f0395d2428f601c216caa61996f75b3d7be8a683ae99161",
+      "release_sha256": "1d5531d9bad9d0dc4f0395d2428f601c216caa61996f75b3d7be8a683ae99161",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/run_sc_tse_phase1_v0001.py",
+      "source_sha256": "f0c5a0669f55676d2f9b78dfc4cbf378bdbeec4853b6d12dea30aca3292e6297",
+      "release_sha256": "f0c5a0669f55676d2f9b78dfc4cbf378bdbeec4853b6d12dea30aca3292e6297",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/run_sc_tse_phase0_v0001.py",
+      "source_sha256": "ffc21340c57cb3b844d062f4930759fc241fbd7f9dbc5cc8310fdfc853b2f65c",
+      "release_sha256": "ffc21340c57cb3b844d062f4930759fc241fbd7f9dbc5cc8310fdfc853b2f65c",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_road_metrics_v0001.py",
+      "source_sha256": "5fa6d0555d152621d850c00d76434ee7492ccdd34f26d69bc22b4c21083094cf",
+      "release_sha256": "5fa6d0555d152621d850c00d76434ee7492ccdd34f26d69bc22b4c21083094cf",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_road_contracts_v0001.py",
+      "source_sha256": "e3b896f1be74863ba384778a5c86d6f71b4d42adeb4f6ad3ddcd5e12dba5e3ae",
+      "release_sha256": "e3b896f1be74863ba384778a5c86d6f71b4d42adeb4f6ad3ddcd5e12dba5e3ae",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_road_vertical_v0001.py",
+      "source_sha256": "9a4665df0d35520682d82d8a88454bc3058ff92dc64580fd3bdec207749e09b0",
+      "release_sha256": "9a4665df0d35520682d82d8a88454bc3058ff92dc64580fd3bdec207749e09b0",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_road_alignment_v0001.py",
+      "source_sha256": "8df030806776f360b3a39352bbdd439741e409465615bda2e868a623db302369",
+      "release_sha256": "8df030806776f360b3a39352bbdd439741e409465615bda2e868a623db302369",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_road_constraints_v0001.py",
+      "source_sha256": "4dddfecd289e432b8f674c50d6f595a2222d6747788f55625a064c690854e656",
+      "release_sha256": "4dddfecd289e432b8f674c50d6f595a2222d6747788f55625a064c690854e656",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/run_sc_tse_road_graph_access_v0001.py",
+      "source_sha256": "ddbb789871fafe7ad889b851c8f56f4e5cf3c97c190ba95ef939453bb80259dc",
+      "release_sha256": "ddbb789871fafe7ad889b851c8f56f4e5cf3c97c190ba95ef939453bb80259dc",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/run_sc_tse_orchestrator_v0003.py",
+      "source_sha256": "494aa53bfc2ab39f7af070a12dbfd2b87905fbd680b74ecb36842e0fcf041fbf",
+      "release_sha256": "494aa53bfc2ab39f7af070a12dbfd2b87905fbd680b74ecb36842e0fcf041fbf",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/sc_tse_orchestration_state_v0002.py",
+      "source_sha256": "72ae0ee4c6aeed53a7d92715bfd139d6a193ee374b0eb1775871f4826f35895d",
+      "release_sha256": "72ae0ee4c6aeed53a7d92715bfd139d6a193ee374b0eb1775871f4826f35895d",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_computational_problem_v0001.schema.json",
+      "source_sha256": "24e8e1bf6736ba9c62296c9fc1f4fc8f6862fc54051988ed110e746f1470d13e",
+      "release_sha256": "24e8e1bf6736ba9c62296c9fc1f4fc8f6862fc54051988ed110e746f1470d13e",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_connectivity_problem_v0001.schema.json",
+      "source_sha256": "dbdf74626c00789eb747855b468bfc3ce736673c639536a6a072e8867f0109b0",
+      "release_sha256": "dbdf74626c00789eb747855b468bfc3ce736673c639536a6a072e8867f0109b0",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_connectivity_result_v0001.schema.json",
+      "source_sha256": "0efd2af7f57dbfbbb727fad53b6094597564016f8fca941701016bd89641143f",
+      "release_sha256": "0efd2af7f57dbfbbb727fad53b6094597564016f8fca941701016bd89641143f",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_design_surface_config_v0001.schema.json",
+      "source_sha256": "7bbbd1a002a48bfde89fa6f5f086d8479a05a3438e213cd034fbfe20b9cc60ca",
+      "release_sha256": "7bbbd1a002a48bfde89fa6f5f086d8479a05a3438e213cd034fbfe20b9cc60ca",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_design_surface_problem_v0001.schema.json",
+      "source_sha256": "37204cb7156a71d152942180d29007746404a3aec9011a8bc7fed861e60a8b02",
+      "release_sha256": "37204cb7156a71d152942180d29007746404a3aec9011a8bc7fed861e60a8b02",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_design_surface_request_v0001.schema.json",
+      "source_sha256": "011e1fa4d051cb1a2372ff5dbf3d64abed69416d05f32c57a47b720d6b44c433",
+      "release_sha256": "011e1fa4d051cb1a2372ff5dbf3d64abed69416d05f32c57a47b720d6b44c433",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_design_surface_result_v0001.schema.json",
+      "source_sha256": "02218e7e18b332b488dc2b62163b0bce1c6b237e199522dc5b6cd864bce68444",
+      "release_sha256": "02218e7e18b332b488dc2b62163b0bce1c6b237e199522dc5b6cd864bce68444",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_earthwork_config_v0001.schema.json",
+      "source_sha256": "750920de42d3280ec612afacf53455e085419f3a77dafb21dd1c2653bbd86e61",
+      "release_sha256": "750920de42d3280ec612afacf53455e085419f3a77dafb21dd1c2653bbd86e61",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_earthwork_problem_v0001.schema.json",
+      "source_sha256": "d015a27bf41c7de6b3c345b3ebc3c542d7394ac982cd15b83d211a7681221fa7",
+      "release_sha256": "d015a27bf41c7de6b3c345b3ebc3c542d7394ac982cd15b83d211a7681221fa7",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_earthwork_result_v0001.schema.json",
+      "source_sha256": "55bc5fbc310355e8c4b1baba932fd720e8aab0c17eaee7160e577b8f424f8151",
+      "release_sha256": "55bc5fbc310355e8c4b1baba932fd720e8aab0c17eaee7160e577b8f424f8151",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_elevation_binding_config_v0001.schema.json",
+      "source_sha256": "d15e21d7f339bab13dae4d382c7916e03d70bce469dbc75bfd8560c6ce5130cf",
+      "release_sha256": "d15e21d7f339bab13dae4d382c7916e03d70bce469dbc75bfd8560c6ce5130cf",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_elevation_binding_problem_v0001.schema.json",
+      "source_sha256": "0dcba57c4a0ac588c7b479795f4f8387047531194b970ffdbf5c828836bbacb8",
+      "release_sha256": "0dcba57c4a0ac588c7b479795f4f8387047531194b970ffdbf5c828836bbacb8",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_elevation_binding_result_v0001.schema.json",
+      "source_sha256": "b754d60d71b90705bdae2b085c5a70c1843825dc24192bf4b0d901bff1e2f853",
+      "release_sha256": "b754d60d71b90705bdae2b085c5a70c1843825dc24192bf4b0d901bff1e2f853",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_existing_surface_config_v0001.schema.json",
+      "source_sha256": "6f03879830c0c60c217b1d476afb8379b0b660b6aeb6fd95c37596a8304fe15b",
+      "release_sha256": "6f03879830c0c60c217b1d476afb8379b0b660b6aeb6fd95c37596a8304fe15b",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_existing_surface_problem_v0001.schema.json",
+      "source_sha256": "45b24682ec8b0a70f5164f8f1e7f9beab0c5fd8455f3688e6f83b0a552326278",
+      "release_sha256": "45b24682ec8b0a70f5164f8f1e7f9beab0c5fd8455f3688e6f83b0a552326278",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_existing_surface_result_v0001.schema.json",
+      "source_sha256": "d0d8708b5b995bd7aa800baaa9f74fa16c225a746163aeae906d6e4aef04a10a",
+      "release_sha256": "d0d8708b5b995bd7aa800baaa9f74fa16c225a746163aeae906d6e4aef04a10a",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_layout_feedback_batch_v0001.schema.json",
+      "source_sha256": "2829f3131141eef99a7b43a9243361d2a914e1da6eeb142ea6e9a1663c4aec9c",
+      "release_sha256": "2829f3131141eef99a7b43a9243361d2a914e1da6eeb142ea6e9a1663c4aec9c",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_layout_problem_v0001.schema.json",
+      "source_sha256": "30663ca8c27256aea56892a19b9ce80ab03a83873fcc96c5bad531658a68634b",
+      "release_sha256": "30663ca8c27256aea56892a19b9ce80ab03a83873fcc96c5bad531658a68634b",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_layout_quality_config_v0001.schema.json",
+      "source_sha256": "2db38024ad07afe51545d405745d5e4cab98c394db07ed97323972034e1ca155",
+      "release_sha256": "2db38024ad07afe51545d405745d5e4cab98c394db07ed97323972034e1ca155",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_layout_quality_result_v0001.schema.json",
+      "source_sha256": "1c5928e17ee073c148808b5a09b0be857437e17a1da81b98e09f8c68603b8eb5",
+      "release_sha256": "1c5928e17ee073c148808b5a09b0be857437e17a1da81b98e09f8c68603b8eb5",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_layout_result_v0001.schema.json",
+      "source_sha256": "a11b55e015a751d6f1cd1915add6c39adf5d85f2bd68c8e1c0007700cbbeafb4",
+      "release_sha256": "a11b55e015a751d6f1cd1915add6c39adf5d85f2bd68c8e1c0007700cbbeafb4",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_multi_elevation_config_v0001.schema.json",
+      "source_sha256": "040d7ff6f528e28cd6f10421496a36bb11cf7074a622c9480a220cb7061851ed",
+      "release_sha256": "040d7ff6f528e28cd6f10421496a36bb11cf7074a622c9480a220cb7061851ed",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_multi_elevation_problem_v0001.schema.json",
+      "source_sha256": "c19268c382e40764f0076a6c0a93a55c43319298f7d6f50a50b054ad025af3d7",
+      "release_sha256": "c19268c382e40764f0076a6c0a93a55c43319298f7d6f50a50b054ad025af3d7",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_multi_elevation_request_v0001.schema.json",
+      "source_sha256": "83a92e17426d846c45003b5c3bd67665475c7e99bc5cbf3932c31e227df088c9",
+      "release_sha256": "83a92e17426d846c45003b5c3bd67665475c7e99bc5cbf3932c31e227df088c9",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_multi_elevation_result_v0001.schema.json",
+      "source_sha256": "420e6ba358caf370b2b6e330b12bba59dd0d0bf7e12d1416872b6a2ae9e88450",
+      "release_sha256": "420e6ba358caf370b2b6e330b12bba59dd0d0bf7e12d1416872b6a2ae9e88450",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_optimization_v0001.schema.json",
+      "source_sha256": "9736699c6da1c01db3776c03329f5a218e676b38944c6c4d9ca77042629fb7ed",
+      "release_sha256": "9736699c6da1c01db3776c03329f5a218e676b38944c6c4d9ca77042629fb7ed",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_pad_elevation_optimization_config_v0001.schema.json",
+      "source_sha256": "d8e004daaa9c243ad71ecf3912aeea3a38496ad4d8db278a5a8dc5c9cb574a46",
+      "release_sha256": "d8e004daaa9c243ad71ecf3912aeea3a38496ad4d8db278a5a8dc5c9cb574a46",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_pad_elevation_optimization_problem_v0001.schema.json",
+      "source_sha256": "d73be2df2cefd2f8a5f37d63616ddcfe024fae186ed9972b993e9dab0bcbfb1a",
+      "release_sha256": "d73be2df2cefd2f8a5f37d63616ddcfe024fae186ed9972b993e9dab0bcbfb1a",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_pad_elevation_optimization_request_v0001.schema.json",
+      "source_sha256": "d728f3596c517918284c85566bdcd25d81c1af7b78e0f2433e5b45fa8b6bbe84",
+      "release_sha256": "d728f3596c517918284c85566bdcd25d81c1af7b78e0f2433e5b45fa8b6bbe84",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_pad_elevation_optimization_result_v0001.schema.json",
+      "source_sha256": "2e7eae09b85d7bd3dbb3f95a64d6fb67e712623a15210a10fbc9b06e828004a7",
+      "release_sha256": "2e7eae09b85d7bd3dbb3f95a64d6fb67e712623a15210a10fbc9b06e828004a7",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_phase0_result_v0001.schema.json",
+      "source_sha256": "8bfa3ccab4c79fa89bcf1fc9bd43e6033337aeeb753ff42ab4c4d9abe77fe011",
+      "release_sha256": "8bfa3ccab4c79fa89bcf1fc9bd43e6033337aeeb753ff42ab4c4d9abe77fe011",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_phase3_result_v0001.schema.json",
+      "source_sha256": "c1bcccf3d11e46167a8dcfd88e91497387cfc8f47b46b6d17be8a375eed351d1",
+      "release_sha256": "c1bcccf3d11e46167a8dcfd88e91497387cfc8f47b46b6d17be8a375eed351d1",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_road_access_config_v0001.schema.json",
+      "source_sha256": "e235599eb2cc4664350fad8c2f941545b690dae0654bbfb2c680f4971772f673",
+      "release_sha256": "e235599eb2cc4664350fad8c2f941545b690dae0654bbfb2c680f4971772f673",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_road_access_request_v0001.schema.json",
+      "source_sha256": "57a6891bf5757a705b3f7e307f130dbc17b044df6c91f5b3a11cc153aacbb899",
+      "release_sha256": "57a6891bf5757a705b3f7e307f130dbc17b044df6c91f5b3a11cc153aacbb899",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_road_access_result_v0001.schema.json",
+      "source_sha256": "e8d89e6c7f7c490e7ae45afcd27872ddd94af6c6b88be363d690c7526e644f81",
+      "release_sha256": "e8d89e6c7f7c490e7ae45afcd27872ddd94af6c6b88be363d690c7526e644f81",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_road_graph_access_result_v0001.schema.json",
+      "source_sha256": "909b04cde461100efa0f388aba04391c44f7879a66d993b0de37b3a02b4e1df6",
+      "release_sha256": "909b04cde461100efa0f388aba04391c44f7879a66d993b0de37b3a02b4e1df6",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_road_graph_config_v0001.schema.json",
+      "source_sha256": "eb92d560c9b7f96a8fa7500f682e941d38630f09ca4cfe05eedc2d9451177ae7",
+      "release_sha256": "eb92d560c9b7f96a8fa7500f682e941d38630f09ca4cfe05eedc2d9451177ae7",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_road_graph_engineering_result_v0001.schema.json",
+      "source_sha256": "11620835edbf04c17414b9ef43a6b968b71b0f4dddc8f60b778efc873fe5dd10",
+      "release_sha256": "11620835edbf04c17414b9ef43a6b968b71b0f4dddc8f60b778efc873fe5dd10",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_road_graph_phase4_config_v0001.schema.json",
+      "source_sha256": "813ea5621f73ac076511ef3f478c6f1f95ed0c11e400b4cedcd1cc59dd270930",
+      "release_sha256": "813ea5621f73ac076511ef3f478c6f1f95ed0c11e400b4cedcd1cc59dd270930",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_road_graph_request_v0001.schema.json",
+      "source_sha256": "3d1daaaf3f684dc28e7523a24578f919b8ae38f61267cbd7ab69822235a84dcc",
+      "release_sha256": "3d1daaaf3f684dc28e7523a24578f919b8ae38f61267cbd7ab69822235a84dcc",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_road_graph_result_v0001.schema.json",
+      "source_sha256": "e6dd072f151f68ddda4b136aece95d4dc033878f5363a711e875b0818c2c0520",
+      "release_sha256": "e6dd072f151f68ddda4b136aece95d4dc033878f5363a711e875b0818c2c0520",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_road_result_v0001.schema.json",
+      "source_sha256": "3dac8894ee8297aec83a7569590304f16bb7fda64e64a393ed6762d2805c2c5b",
+      "release_sha256": "3dac8894ee8297aec83a7569590304f16bb7fda64e64a393ed6762d2805c2c5b",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_slope_transition_config_v0001.schema.json",
+      "source_sha256": "b8b94a609d7cd205692ce901f6e8d7c4a49fe20211037b6f012a3e41c7e7689d",
+      "release_sha256": "b8b94a609d7cd205692ce901f6e8d7c4a49fe20211037b6f012a3e41c7e7689d",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_slope_transition_problem_v0001.schema.json",
+      "source_sha256": "fdefe4bc6eae9ef114f3bbf29dacfde9fcf095ae88b3da7e73482e4480732cfa",
+      "release_sha256": "fdefe4bc6eae9ef114f3bbf29dacfde9fcf095ae88b3da7e73482e4480732cfa",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_slope_transition_request_v0001.schema.json",
+      "source_sha256": "a28ed55fd64df44ee2fe4455457c0b23bc378073303f254bce7293ff4e963e80",
+      "release_sha256": "a28ed55fd64df44ee2fe4455457c0b23bc378073303f254bce7293ff4e963e80",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_slope_transition_result_v0001.schema.json",
+      "source_sha256": "1e12f4e7e61e32904c66d05da741828be811d3c3e292191b0e3fa13f0b43bb42",
+      "release_sha256": "1e12f4e7e61e32904c66d05da741828be811d3c3e292191b0e3fa13f0b43bb42",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_terrain_evidence_config_v0001.schema.json",
+      "source_sha256": "03edd012f7526096aa6573e61aa5ac8a2a4b148a839a40e90915adcf0563bcfd",
+      "release_sha256": "03edd012f7526096aa6573e61aa5ac8a2a4b148a839a40e90915adcf0563bcfd",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_terrain_evidence_input_v0001.schema.json",
+      "source_sha256": "f73a5f06d35e2a03374c8c793a0f77205d9b86c9a54d7cbac5d4717918b6ac37",
+      "release_sha256": "f73a5f06d35e2a03374c8c793a0f77205d9b86c9a54d7cbac5d4717918b6ac37",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_terrain_evidence_result_v0001.schema.json",
+      "source_sha256": "663e4fca7c2274d0044479c5daa8cc8b48914ffdd7227c243fe1aab0cd46e125",
+      "release_sha256": "663e4fca7c2274d0044479c5daa8cc8b48914ffdd7227c243fe1aab0cd46e125",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_vehicle_swept_path_config_v0001.schema.json",
+      "source_sha256": "8331473f4d1467a3187dbd7a3bdb71616502a010a7f667d87751c609db9c709b",
+      "release_sha256": "8331473f4d1467a3187dbd7a3bdb71616502a010a7f667d87751c609db9c709b",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_vehicle_swept_problem_v0001.schema.json",
+      "source_sha256": "6ef0f6f367a7db7af73247a9a53250eb12d61eeb1e4acca70f0936713b747cea",
+      "release_sha256": "6ef0f6f367a7db7af73247a9a53250eb12d61eeb1e4acca70f0936713b747cea",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_vehicle_swept_request_v0001.schema.json",
+      "source_sha256": "b61a5b4a17976bb9034b771029d22374d38550404039f6c39d9e39f947653f8c",
+      "release_sha256": "b61a5b4a17976bb9034b771029d22374d38550404039f6c39d9e39f947653f8c",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_vehicle_swept_result_v0001.schema.json",
+      "source_sha256": "d1d0193d9f19ae56789dc4cddde2d497b750d4623828335fead32babe954408e",
+      "release_sha256": "d1d0193d9f19ae56789dc4cddde2d497b750d4623828335fead32babe954408e",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_vertical_contract_config_v0001.schema.json",
+      "source_sha256": "3c13fd77d33cb83efe6f64869ec9cce6e6ff50fa6a9221bdc06052c31b02fec1",
+      "release_sha256": "3c13fd77d33cb83efe6f64869ec9cce6e6ff50fa6a9221bdc06052c31b02fec1",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_vertical_contract_problem_v0001.schema.json",
+      "source_sha256": "ac96d43a1c4fa5b62a374c992cc5eb01f88b70a2222a404dc3e4ef9d82272c94",
+      "release_sha256": "ac96d43a1c4fa5b62a374c992cc5eb01f88b70a2222a404dc3e4ef9d82272c94",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/schemas/sc_tse_vertical_contract_result_v0001.schema.json",
+      "source_sha256": "3fa16a5696db2375d3526cf7cbe8c1c99ca965d92500fa85ad942474e83f60b7",
+      "release_sha256": "3fa16a5696db2375d3526cf7cbe8c1c99ca965d92500fa85ad942474e83f60b7",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/frontend/sc_tse_integration_api_v0001.py",
+      "source_sha256": "4f6c08ce6226b7dd3d5d153cbebe6a7d6e962e71734122d70cca867986e6edb8",
+      "release_sha256": "4f6c08ce6226b7dd3d5d153cbebe6a7d6e962e71734122d70cca867986e6edb8",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/frontend/run_sc_tse_integration_v0001.py",
+      "source_sha256": "3303f25d599cbdf6dc41e79e5eeab68207fdc9b1069b41dbd3f06fbfc8498006",
+      "release_sha256": "3303f25d599cbdf6dc41e79e5eeab68207fdc9b1069b41dbd3f06fbfc8498006",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/frontend/integration_app_v0001.js",
+      "source_sha256": "6b9e97171a83bbb6a358cdb53d94a5f5c7db1247d087a771340ab24a3bc3a624",
+      "release_sha256": "6b9e97171a83bbb6a358cdb53d94a5f5c7db1247d087a771340ab24a3bc3a624",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/frontend/launch_sc_tse_integration_v0001.cmd",
+      "source_sha256": "4683c250191e39c65320b45341f57485bc6b7465cd02a9c886226d965445b5be",
+      "release_sha256": "ffcb186e642034474ea7001ca3e2ed33d034af96366684145d7e903df0d4b553",
+      "copy_identical": false,
+      "adaptation": "LF to CRLF only for Windows CMD parsing; normalized source content unchanged."
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/frontend/integration.html",
+      "source_sha256": "3bfd2d8f413a687d0e33b42983fe548157fa81fa03f3fe15a84a4d54f902f0d7",
+      "release_sha256": "3bfd2d8f413a687d0e33b42983fe548157fa81fa03f3fe15a84a4d54f902f0d7",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/frontend/integration.css",
+      "source_sha256": "84661f2abfcc4b4c5e7b5932f05cca691d91365e2707d904cbe59e9616484060",
+      "release_sha256": "84661f2abfcc4b4c5e7b5932f05cca691d91365e2707d904cbe59e9616484060",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/frontend/integration_config_v0001.json",
+      "source_sha256": "7d8f8cec946ce527c841240c21ab63e55d1bdd8762a5b2d5f661dce1a54a4657",
+      "release_sha256": "7d8f8cec946ce527c841240c21ab63e55d1bdd8762a5b2d5f661dce1a54a4657",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/frontend/integration_cases/gc_road_001_v0001.json",
+      "source_sha256": "19b1f0b3b933d752a5cc3e8ef1326f0d4be92dc69b7434de9f04213defaa9378",
+      "release_sha256": "19b1f0b3b933d752a5cc3e8ef1326f0d4be92dc69b7434de9f04213defaa9378",
+      "copy_identical": true
+    },
+    {
+      "path": "scripts/action/development/scripts/sc_tse/frontend/integration_schemas/contract_v0001.json",
+      "source_sha256": "326766ab7c6bd48ac9f10611e7c965904b0af1581b5b47e23e5ee190a052d180",
+      "release_sha256": "326766ab7c6bd48ac9f10611e7c965904b0af1581b5b47e23e5ee190a052d180",
+      "copy_identical": true
+    },
+    {
+      "path": "config/action/config/sc_tse_phase0_config_v0001.json",
+      "source_sha256": "0519d2f89889da768a7bac30fee857c37d8a5ae8be494581ab1d95ac2e391b8c",
+      "release_sha256": "0519d2f89889da768a7bac30fee857c37d8a5ae8be494581ab1d95ac2e391b8c",
+      "copy_identical": true
+    },
+    {
+      "path": "config/action/config/sc_tse_phase1_config_v0001.json",
+      "source_sha256": "688242ab12a90761b01baafc5e736f469e331bca8656d36fd1aa4a76cdcaad30",
+      "release_sha256": "688242ab12a90761b01baafc5e736f469e331bca8656d36fd1aa4a76cdcaad30",
+      "copy_identical": true
+    },
+    {
+      "path": "config/action/config/sc_tse_phase2_config_v0001.json",
+      "source_sha256": "46f00d1c1510890c7688952a83cf360a3071183df4d1c666f667bf04e71391f6",
+      "release_sha256": "46f00d1c1510890c7688952a83cf360a3071183df4d1c666f667bf04e71391f6",
+      "copy_identical": true
+    },
+    {
+      "path": "config/action/config/sc_tse_phase3_config_v0001.json",
+      "source_sha256": "4ca5e3592358f44397731ea034520924c659d4659a056923e6fae0da70cd6099",
+      "release_sha256": "4ca5e3592358f44397731ea034520924c659d4659a056923e6fae0da70cd6099",
+      "copy_identical": true
+    },
+    {
+      "path": "config/action/config/sc_tse_phase4_config_v0001.json",
+      "source_sha256": "444d039422441899de4af2a44535b7c0eb2c2acbb0d84a7c68865a02cc2213a7",
+      "release_sha256": "444d039422441899de4af2a44535b7c0eb2c2acbb0d84a7c68865a02cc2213a7",
+      "copy_identical": true
+    },
+    {
+      "path": "config/action/config/sc_tse_hardening_config_v0001.json",
+      "source_sha256": "d38ba7777408f6126bde565ad394fcdcaa548182f906fdd5d18f97c97a7ccead",
+      "release_sha256": "d38ba7777408f6126bde565ad394fcdcaa548182f906fdd5d18f97c97a7ccead",
+      "copy_identical": true
+    },
+    {
+      "path": "config/action/config/sc_tse_road_graph_config_v0001.json",
+      "source_sha256": "d38f0c4a824fd6b379eb70c337ccf66b7c307eb6d52ec69c438b424c3685e7a3",
+      "release_sha256": "d38f0c4a824fd6b379eb70c337ccf66b7c307eb6d52ec69c438b424c3685e7a3",
+      "copy_identical": true
+    },
+    {
+      "path": "config/action/config/sc_tse_road_graph_engineering_phase4_config_v0001.json",
+      "source_sha256": "f11579b23e407f1280cfa59d3fc54a8c8a8b9e4fedb6a481ffcf6eedadbd707d",
+      "release_sha256": "f11579b23e407f1280cfa59d3fc54a8c8a8b9e4fedb6a481ffcf6eedadbd707d",
+      "copy_identical": true
+    },
+    {
+      "path": "config/action/config/sc_tse_road_graph_phase4_config_v0001.json",
+      "source_sha256": "03587d11a4df2b2488979c760c3ebb74826a0b49561676bd831f446f2bc313b9",
+      "release_sha256": "03587d11a4df2b2488979c760c3ebb74826a0b49561676bd831f446f2bc313b9",
+      "copy_identical": true
+    },
+    {
+      "path": "PROGRAMMING_LANGUAGE_SCRIPT_FORMAT.md",
+      "source_sha256": "1df741f6cbee58c758b5f6c795878ce551f0e1990b1ebbd5ebffad2d0773b493",
+      "release_sha256": "1df741f6cbee58c758b5f6c795878ce551f0e1990b1ebbd5ebffad2d0773b493",
+      "copy_identical": true
+    },
+    {
+      "path": "tests/test_integration_mvp_v0001.py",
+      "source_path": "staging/sc_tse_integration_mvp_v0001/test_integration_mvp_v0001.py",
+      "source_sha256": "b519ef04008b2363c455f7ca684da441a057e8131e8b4f1a7c69ed0057c22409",
+      "release_sha256": "5ac45ecc78a10ca3f64710ea8a7a3013a313d800ce7d46bf7ef9f8f8df54ccb1",
+      "copy_identical": false,
+      "adaptation": "Release-relative test path/reference fixture or distance-display assertion; runtime unchanged."
+    },
+    {
+      "path": "tests/test_integration_browser_v0001.cjs",
+      "source_path": "staging/sc_tse_integration_mvp_v0001/test_integration_browser_v0001.cjs",
+      "source_sha256": "e2726d4c7edb6ddded70368648cb4cc47ba9ef822749193ff0624bc9a3839026",
+      "release_sha256": "26ba41e6c1a35f6d986ee0c4b72ea7b3ab2f81dbbfedb65f196042fd03db89b9",
+      "copy_identical": false,
+      "adaptation": "Release-relative test path/reference fixture or distance-display assertion; runtime unchanged."
+    }
+  ]
+}

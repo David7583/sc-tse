@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc-tse-layout-quality-run-v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "execution_status", "solve_status", "problem_id", "problem_hash", "generated_candidate_set", "engineering_admission", "admitted_candidates", "foundation_metric_sets", "foundation_evaluation_results", "foundation_ranking_result", "quality_metric_sets", "quality_evaluation_results", "quality_ranking_result", "preference_profile", "provenance", "observability"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-layout-quality-run-v0.1.0"},
+    "record_type": {"const": "LayoutQualityRun"},
+    "execution_status": {"const": "COMPLETED"},
+    "solve_status": {"const": "FEASIBLE"},
+    "problem_id": {"type": "string", "minLength": 1},
+    "problem_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "generated_candidate_set": {"type": "object"},
+    "engineering_admission": {"type": "object", "required": ["required_stages", "admitted_candidate_ids", "rejected_candidates"]},
+    "admitted_candidates": {"type": "array", "minItems": 3, "items": {"type": "object", "required": ["candidate", "layout_artifact", "phase2_problem", "phase2_result", "phase4_run", "road_access_result", "admission_status"]}},
+    "foundation_metric_sets": {"type": "object"},
+    "foundation_evaluation_results": {"type": "array"},
+    "foundation_ranking_result": {"type": "object"},
+    "quality_metric_sets": {"type": "object"},
+    "quality_evaluation_results": {"type": "array"},
+    "quality_ranking_result": {"type": "object", "required": ["ranking_status", "ordered_candidate_ids", "rank_entries", "meaning"]},
+    "preference_profile": {"type": "array"},
+    "provenance": {"type": "object"},
+    "observability": {"type": "object", "required": ["total_ms", "generated_count", "admitted_count", "rejected_count"]}
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SC-TSE Vehicle Swept Path Problem v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "problem_id", "coordinate_frame", "road", "vehicle", "derived_turning", "path_tracking", "clearance_requirements", "obstacles", "source_refs", "config_hash", "problem_hash"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-vehicle-swept-problem-v0.1.0"},
+    "record_type": {"const": "VehicleSweptPathProblem"},
+    "problem_id": {"type": "string", "minLength": 1},
+    "coordinate_frame": {"type": "object"},
+    "road": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_id", "alignment"],
+      "properties": {"candidate_id": {"type": "string"}, "alignment": {"type": "object"}}
+    },
+    "vehicle": {"type": "object"},
+    "derived_turning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_rear_axle_radius_m", "method"],
+      "properties": {
+        "minimum_rear_axle_radius_m": {"type": "number", "minimum": 0},
+        "method": {"enum": ["MAX_STEERING_ANGLE", "MINIMUM_REAR_AXLE_RADIUS"]}
+      }
+    },
+    "path_tracking": {"type": "object"},
+    "clearance_requirements": {"type": "object"},
+    "obstacles": {"type": "array", "items": {"type": "object", "required": ["obstacle_id", "footprint"]}},
+    "source_refs": {"type": "object"},
+    "config_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "problem_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

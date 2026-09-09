@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SC-TSE Multi Elevation Run v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "execution_status", "evaluation_status", "problem_id", "problem_hash", "vertical_nodes", "relation_results", "summary", "source_refs", "not_evaluated_items", "scope", "observability", "result_hash"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-multi-elevation-result-v0.1.0"},
+    "record_type": {"const": "MultiElevationRun"},
+    "execution_status": {"const": "COMPLETED"},
+    "evaluation_status": {"enum": ["COMPLETE", "PARTIAL", "NOT_EVALUATED"]},
+    "problem_id": {"type": "string"},
+    "problem_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "vertical_nodes": {"type": "array", "minItems": 1},
+    "relation_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["relation_id", "relation_type", "status", "reason", "from_node_id", "to_node_id"],
+        "properties": {"status": {"enum": ["CALCULATED", "NOT_EVALUATED"]}}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_count", "vertical_node_count", "relation_count", "calculated_count", "not_evaluated_count"],
+      "properties": {
+        "object_count": {"type": "integer", "minimum": 1},
+        "vertical_node_count": {"type": "integer", "minimum": 1},
+        "relation_count": {"type": "integer", "minimum": 1},
+        "calculated_count": {"type": "integer", "minimum": 0},
+        "not_evaluated_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "source_refs": {"type": "object"},
+    "not_evaluated_items": {"type": "array", "items": {"type": "string"}},
+    "scope": {"const": "MULTI_SEMANTIC_ELEVATION_RELATIONS_ONLY"},
+    "observability": {"type": "object", "required": ["total_ms", "object_count", "vertical_node_count", "relation_count"]},
+    "result_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

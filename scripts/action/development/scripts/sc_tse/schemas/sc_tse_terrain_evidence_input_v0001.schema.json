@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_terrain_evidence_input_v0001.schema.json",
+  "title": "SC-TSE Terrain Evidence Source Package v0001",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "test_case_id",
+    "record_type",
+    "source",
+    "coordinate_frame",
+    "survey_control_points",
+    "design_regions",
+    "other_visible_annotations",
+    "existing_terrain",
+    "design_surface",
+    "requested_checks",
+    "expected_status_before_terrain_import",
+    "assumptions_and_non_assumptions",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "sc-tse-terrain-test-v0.2.0"},
+    "test_case_id": {"type": "string", "minLength": 1},
+    "record_type": {"const": "TerrainDesignSurfaceTestCase"},
+    "source": {"type": "object"},
+    "coordinate_frame": {"type": "object"},
+    "survey_control_points": {"type": "array"},
+    "design_regions": {"type": "array", "minItems": 1},
+    "other_visible_annotations": {"type": ["object", "array"]},
+    "existing_terrain": {
+      "type": "object",
+      "required": ["status", "representation", "source_file", "source_sha256", "extraction_stats", "contours"],
+      "properties": {
+        "status": {"const": "AVAILABLE"},
+        "representation": {"const": "CONTOUR_POLYLINES_WITH_ELEVATION"},
+        "source_file": {"type": "string", "minLength": 1},
+        "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "extraction_stats": {"type": "object"},
+        "contours": {"type": "array", "minItems": 1}
+      }
+    },
+    "design_surface": {"type": "object"},
+    "requested_checks": {"type": "array"},
+    "expected_status_before_terrain_import": {"type": "object"},
+    "assumptions_and_non_assumptions": {"type": "object"},
+    "provenance": {"type": "object"}
+  }
+}

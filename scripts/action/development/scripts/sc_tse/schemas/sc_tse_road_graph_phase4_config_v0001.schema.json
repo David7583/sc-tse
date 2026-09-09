@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"sc_tse_road_graph_phase4_config_v0001.schema.json","type":"object","additionalProperties":false,
+  "required":["config_version","waypoint_simplification_m","width_m","centerline_radius_m"],"properties":{"config_version":{"const":"v0001"},"waypoint_simplification_m":{"type":"number","minimum":0},"width_m":{"type":"number","exclusiveMinimum":0},"centerline_radius_m":{"type":"number","exclusiveMinimum":0}}
+}
+

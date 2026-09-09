@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_earthwork_config_v0001.schema.json",
+  "title": "SC-TSE Earthwork Config v0001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "calculation_method", "default_cell_size_m", "minimum_cell_size_m", "maximum_cell_size_m", "maximum_cell_count", "zero_depth_tolerance_m", "complete_coverage_ratio", "zero_line_method", "status_values"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-earthwork-config-v0.1.0"},
+    "calculation_method": {"const": "GRID_CELL_REPRESENTATIVE_CLIPPED_V1"},
+    "default_cell_size_m": {"type": "number", "exclusiveMinimum": 0},
+    "minimum_cell_size_m": {"type": "number", "exclusiveMinimum": 0},
+    "maximum_cell_size_m": {"type": "number", "exclusiveMinimum": 0},
+    "maximum_cell_count": {"type": "integer", "minimum": 1},
+    "zero_depth_tolerance_m": {"type": "number", "minimum": 0},
+    "complete_coverage_ratio": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+    "zero_line_method": {"const": "TIN_LINEAR_ISOLINE_V1"},
+    "status_values": {"const": ["COMPLETE", "PARTIAL", "NOT_EVALUATED"]}
+  }
+}

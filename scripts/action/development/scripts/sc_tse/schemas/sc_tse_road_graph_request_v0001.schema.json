@@ -1,0 +1,12 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"sc_tse_road_graph_request_v0001.schema.json","type":"object","additionalProperties":false,
+  "required":["schema_version","problem_id","site_entrances","network_connections","requirements"],
+  "properties":{
+    "schema_version":{"const":"sc-tse-road-graph-request-v0.1.0"},"problem_id":{"type":"string","minLength":1},
+    "site_entrances":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["site_entrance_id","position","road_connection_position","role"],"properties":{"site_entrance_id":{"type":"string"},"position":{"$ref":"#/$defs/point"},"road_connection_position":{"$ref":"#/$defs/point"},"role":{"type":"string"}}}},
+    "network_connections":{"type":"array","minItems":1,"items":{"type":"object","additionalProperties":false,"required":["connection_id","source","target","required","role"],"properties":{"connection_id":{"type":"string"},"source":{"$ref":"#/$defs/ref"},"target":{"$ref":"#/$defs/ref"},"required":{"type":"boolean"},"role":{"enum":["PRIMARY","REDUNDANCY"]},"phase2_connection_id":{"type":"string"}}}},
+    "requirements":{"type":"object","additionalProperties":false,"required":["minimum_cycle_count"],"properties":{"minimum_cycle_count":{"type":"integer","minimum":0}}},"metadata":{"type":"object"}
+  },
+  "$defs":{"point":{"type":"array","prefixItems":[{"type":"number"},{"type":"number"}],"items":false,"minItems":2,"maxItems":2},"ref":{"type":"object","additionalProperties":false,"required":["kind","id"],"properties":{"kind":{"enum":["BUILDING_GATE","SITE_ENTRANCE"]},"id":{"type":"string"}}}}
+}
+

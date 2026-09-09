@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "id": {"type":"string","minLength":1,"maxLength":120},
+    "number": {"type":"number","minimum":-10000000,"maximum":10000000},
+    "point": {"type":"array","items":{"$ref":"#/$defs/number"},"minItems":2,"maxItems":2},
+    "block": {"type":"object","required":["block_id","geometry","connection_gates"],"properties":{
+      "block_id":{"$ref":"#/$defs/id"},
+      "geometry":{"type":"object","required":["type","center","width_m","height_m"],"additionalProperties":false,"properties":{
+        "type":{"const":"rectangle"},"center":{"$ref":"#/$defs/point"},
+        "width_m":{"type":"number","exclusiveMinimum":0,"maximum":100000},"height_m":{"type":"number","exclusiveMinimum":0,"maximum":100000},"rotation_deg":{"const":0}}},
+      "connection_gates":{"type":"array","maxItems":20,"items":{"type":"object","required":["gate_id","position"],"properties":{"gate_id":{"$ref":"#/$defs/id"},"position":{"$ref":"#/$defs/point"}}}}
+    }},
+    "project": {"type":"object","additionalProperties":false,"required":["schema_version","project_id","title","case","road_graph_request","road_problem_template","provenance"],"properties":{
+      "schema_version":{"const":"sc-tse-integration-project-v0001"},"project_id":{"$ref":"#/$defs/id"},"title":{"$ref":"#/$defs/id"},"provenance":{"type":"object"},
+      "road_graph_request":{"type":"object"},"road_problem_template":{"type":"object"},
+      "case":{"type":"object","additionalProperties":false,"required":["case_id","problem_id","site_id","coordinate_frame","site_geometry","blocks","constraints","connection_requirements","obstacle_buffer_m","solver_config"],"properties":{
+        "case_id":{"$ref":"#/$defs/id"},"problem_id":{"$ref":"#/$defs/id"},"site_id":{"$ref":"#/$defs/id"},"coordinate_frame":{"type":"object"},
+        "site_geometry":{"type":"object","required":["type","coordinates"],"additionalProperties":false,"properties":{"type":{"const":"polygon"},"coordinates":{"type":"array","minItems":4,"maxItems":1000,"items":{"$ref":"#/$defs/point"}}}},
+        "blocks":{"type":"array","minItems":1,"maxItems":100,"items":{"$ref":"#/$defs/block"}},
+        "constraints":{"type":"array","maxItems":1000,"items":{"type":"object"}},"connection_requirements":{"type":"array","maxItems":1000,"items":{"type":"object"}},
+        "obstacle_buffer_m":{"type":"number","minimum":0,"maximum":1000},"solver_config":{"type":"object"}
+      }}
+    }},
+    "edit":{"type":"object","additionalProperties":false,"required":["block_id","center_x","center_y"],"properties":{"block_id":{"$ref":"#/$defs/id"},"center_x":{"$ref":"#/$defs/number"},"center_y":{"$ref":"#/$defs/number"}}},
+    "request":{"type":"object","additionalProperties":false,"required":["schema_version","request_id","project","edits"],"properties":{"schema_version":{"const":"sc-tse-integration-request-v0001"},"request_id":{"$ref":"#/$defs/id"},"project":{"$ref":"#/$defs/project"},"edits":{"type":"array","maxItems":100,"items":{"$ref":"#/$defs/edit"}}}},
+    "result":{"type":"object","additionalProperties":false,"required":["schema_version","request_id","status","project_id","input_hash","case_hash","scene","blocking_nodes","metrics","results","workflow","result_hash"],"properties":{
+      "schema_version":{"const":"sc-tse-integration-result-v0001"},"request_id":{"$ref":"#/$defs/id"},"status":{"enum":["COMPLETED","WAITING_FOR_EXTERNAL_UPDATE"]},"project_id":{"$ref":"#/$defs/id"},"input_hash":{"type":"string"},"case_hash":{"type":"string"},"result_hash":{"type":"string"},"scene":{"type":"object"},"blocking_nodes":{"type":"array"},"metrics":{"type":"object"},"results":{"type":"object"},"workflow":{"type":"object"}
+    }},
+    "error":{"type":"object","additionalProperties":false,"required":["schema_version","status","request_id","error_type","detail"],"properties":{"schema_version":{"const":"sc-tse-integration-error-v0001"},"status":{"const":"ERROR"},"request_id":{"type":["string","null"]},"error_type":{"type":"string"},"detail":{"type":"string"}}}
+  }
+}

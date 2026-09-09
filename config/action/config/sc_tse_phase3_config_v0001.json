@@ -1,0 +1,24 @@
+{
+  "config_version": "sc-tse-phase3-config-v0.1.0",
+  "contract_versions": {
+    "layout_feedback_batch": "sc-tse-layout-feedback-batch-v0.1.0",
+    "phase3_result": "sc-tse-phase3-result-v0.1.0"
+  },
+  "supported_problem_classes": ["LAYOUT", "CONNECTIVITY"],
+  "source_solver_configs": {
+    "LAYOUT": "config/action/config/sc_tse_phase1_config_v0001.json",
+    "CONNECTIVITY": "config/action/config/sc_tse_phase2_config_v0001.json"
+  },
+  "severity_policy": {
+    "proven_required_failure": "BLOCKING",
+    "optional_failure": "NON_BLOCKING",
+    "unresolved_failure": "INDETERMINATE"
+  },
+  "runtime": {
+    "max_previous_feedback_items": 1000,
+    "max_feedback_file_bytes": 10485760,
+    "max_source_solver_invocations_per_call": 1,
+    "max_feedback_cycles": 0,
+    "max_automatic_problem_mutations": 0
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_pad_elevation_optimization_config_v0001.schema.json",
+  "title": "SC-TSE Pad Elevation Optimization Config v0001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "maximum_candidate_count", "numeric_tolerance", "ranking_method", "metric_directions", "status_values"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-pad-elevation-optimization-config-v0.1.0"},
+    "maximum_candidate_count": {"type": "integer", "minimum": 1},
+    "numeric_tolerance": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.01},
+    "ranking_method": {"const": "FEASIBLE_MIN_MAX_WEIGHTED_SUM_V1"},
+    "metric_directions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cut_volume_m3", "fill_volume_m3", "net_earthwork_m3", "total_moved_volume_m3", "max_cut_depth_m", "max_fill_depth_m", "slope_footprint_area_m2", "road_connection_penalty_m"],
+      "properties": {
+        "cut_volume_m3": {"const": "MINIMIZE"},
+        "fill_volume_m3": {"const": "MINIMIZE"},
+        "net_earthwork_m3": {"const": "MINIMIZE_ABSOLUTE"},
+        "total_moved_volume_m3": {"const": "MINIMIZE"},
+        "max_cut_depth_m": {"const": "MINIMIZE"},
+        "max_fill_depth_m": {"const": "MINIMIZE"},
+        "slope_footprint_area_m2": {"const": "MINIMIZE"},
+        "road_connection_penalty_m": {"const": "MINIMIZE"}
+      }
+    },
+    "status_values": {"const": ["COMPLETE", "NO_FEASIBLE_CANDIDATE"]}
+  }
+}

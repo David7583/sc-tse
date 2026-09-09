@@ -1,0 +1,27 @@
+{
+  "config_version": "sc-tse-phase1-config-v0.1.0",
+  "contract_versions": {
+    "layout_problem": "sc-tse-layout-problem-v0.1.0",
+    "layout_result": "sc-tse-layout-result-v0.1.0"
+  },
+  "internal_coordinate_frame": {
+    "frame_id": "SC_TSE_CARTESIAN_RH",
+    "handedness": "RIGHT",
+    "z_axis": "UP",
+    "length_unit": "m"
+  },
+  "numerical_tolerance": {
+    "linear_m": 0.001,
+    "area_m2": 0.0001,
+    "z_m": 0.001
+  },
+  "solver_capability": {
+    "allowed_strategies": ["DETERMINISTIC_GRID_SCAN"],
+    "supported_constraint_types": ["inside_site", "non_overlap", "min_distance"],
+    "supported_position_modes": ["FIXED", "FREE"],
+    "max_candidate_evaluations_limit": 100000
+  },
+  "runtime": {
+    "max_problem_bytes": 10485760
+  }
+}

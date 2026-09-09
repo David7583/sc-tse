@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SC-TSE Multi Elevation Relation Request v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "request_id", "objects", "vertical_nodes", "relations"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-multi-elevation-request-v0.1.0"},
+    "record_type": {"const": "MultiElevationRelationRequest"},
+    "request_id": {"type": "string", "minLength": 1},
+    "objects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["object_id", "footprint", "edge_selectors"],
+        "properties": {
+          "object_id": {"type": "string", "minLength": 1},
+          "footprint": {"$ref": "#/$defs/ring"},
+          "edge_selectors": {
+            "type": "object",
+            "additionalProperties": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/xy"}}
+          }
+        }
+      }
+    },
+    "vertical_nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["node_id", "object_id", "semantic", "resolution_query_id", "scope"],
+        "properties": {
+          "node_id": {"type": "string", "minLength": 1},
+          "object_id": {"type": "string", "minLength": 1},
+          "semantic": {"type": "string", "minLength": 1},
+          "resolution_query_id": {"type": "string", "minLength": 1},
+          "scope": {"type": "object"}
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["relation_id", "relation_type", "from_node_id", "to_node_id"],
+            "properties": {
+              "relation_id": {"type": "string", "minLength": 1},
+              "relation_type": {"const": "SIGNED_LEVEL_DIFFERENCE"},
+              "from_node_id": {"type": "string", "minLength": 1},
+              "to_node_id": {"type": "string", "minLength": 1}
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["relation_id", "relation_type", "from_node_id", "to_node_id", "horizontal_distance_m"],
+            "properties": {
+              "relation_id": {"type": "string", "minLength": 1},
+              "relation_type": {"const": "LOCAL_CONNECTION_SLOPE"},
+              "from_node_id": {"type": "string", "minLength": 1},
+              "to_node_id": {"type": "string", "minLength": 1},
+              "horizontal_distance_m": {"type": "number", "exclusiveMinimum": 0}
+            }
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "xy": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+    "ring": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/xy"}}
+  }
+}

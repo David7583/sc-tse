@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_connectivity_result_v0001.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mode", "problem_id", "execution_status", "solve_status", "solution_quality", "connectivity_status", "connection_results", "topology", "failure_data", "diagnostics", "evidence", "solver_metadata"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-connectivity-result-v0.1.0"},
+    "mode": {"enum": ["RUN", "DRY_RUN", "ERROR"]},
+    "problem_id": {"type": ["string", "null"]},
+    "execution_status": {"enum": ["COMPLETED", "INTERRUPTED", "ERROR"]},
+    "solve_status": {"enum": ["FEASIBLE", "UNRESOLVED", "NOT_EVALUATED"]},
+    "solution_quality": {"enum": ["GOOD", "UNKNOWN", "N/A"]},
+    "connectivity_status": {"enum": ["SATISFIED", "NOT_SATISFIED", "NOT_EVALUATED"]},
+    "connection_results": {"type": "array", "items": {"$ref": "#/$defs/connectionResult"}},
+    "topology": {"oneOf": [{"$ref": "#/$defs/topology"}, {"type": "object", "maxProperties": 0}]},
+    "failure_data": {"type": "array", "items": {"$ref": "#/$defs/failure"}},
+    "diagnostics": {"type": "object"},
+    "evidence": {"type": "array", "items": {"$ref": "#/$defs/evidence"}},
+    "solver_metadata": {
+      "type": "object", "additionalProperties": false,
+      "required": ["phase", "path_strategy", "proof_capability", "termination_reason", "grid_expansions"],
+      "properties": {"phase": {"const": "PHASE_2"}, "path_strategy": {"type": ["string", "null"]}, "proof_capability": {"enum": ["NONE", "GRID_GRAPH_EXHAUSTION"]}, "termination_reason": {"type": ["string", "null"]}, "grid_expansions": {"type": "integer", "minimum": 0}}
+    }
+  },
+  "$defs": {
+    "point": {"type": "array", "prefixItems": [{"type": "number"}, {"type": "number"}], "items": false, "minItems": 2, "maxItems": 2},
+    "path": {
+      "type": "object", "additionalProperties": false,
+      "required": ["strategy", "coordinates", "length_m"],
+      "properties": {
+        "strategy": {"const": "GRID_A_STAR_4_NEIGHBOR"},
+        "coordinates": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/point"}},
+        "length_m": {"type": "number", "minimum": 0}
+      }
+    },
+    "connectionResult": {
+      "type": "object", "additionalProperties": false,
+      "required": ["connection_id", "required", "source_block", "source_gate", "target_block", "target_gate", "status", "path"],
+      "properties": {
+        "connection_id": {"type": "string", "minLength": 1}, "required": {"type": "boolean"},
+        "source_block": {"type": "string"}, "source_gate": {"type": "string"},
+        "target_block": {"type": "string"}, "target_gate": {"type": "string"},
+        "status": {"enum": ["CONNECTED", "NO_FEASIBLE_GATEWAY", "NO_FEASIBLE_PATH", "SEARCH_BUDGET_EXHAUSTED"]},
+        "path": {"oneOf": [{"$ref": "#/$defs/path"}, {"type": "null"}]}
+      }
+    },
+    "topology": {
+      "type": "object", "additionalProperties": false,
+      "required": ["level", "nodes", "edges"],
+      "properties": {
+        "level": {"const": "LEVEL_1_EXPLICIT_REQUIREMENTS"},
+        "nodes": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["block_id", "gate_ids"], "properties": {"block_id": {"type": "string"}, "gate_ids": {"type": "array", "items": {"type": "string"}}}}},
+        "edges": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["connection_id", "source_block", "target_block", "required"], "properties": {"connection_id": {"type": "string"}, "source_block": {"type": "string"}, "target_block": {"type": "string"}, "required": {"type": "boolean"}}}}
+      }
+    },
+    "failure": {
+      "type": "object", "additionalProperties": false,
+      "required": ["connection_id", "reason", "affected_gate_ids", "affected_block_ids", "evidence", "hint"],
+      "properties": {
+        "connection_id": {"type": "string"},
+        "reason": {"enum": ["NO_FEASIBLE_GATEWAY", "NO_FEASIBLE_PATH", "SEARCH_BUDGET_EXHAUSTED"]},
+        "affected_gate_ids": {"type": "array", "items": {"type": "string"}},
+        "affected_block_ids": {"type": "array", "items": {"type": "string"}},
+        "evidence": {"type": "object"}, "hint": {"type": "string"}
+      }
+    },
+    "evidence": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["evidence_type", "gate_id", "status", "gateway", "direction", "searched_distance_m", "probes"], "properties": {"evidence_type": {"const": "GATEWAY_SEARCH"}, "gate_id": {"type": "string"}, "status": {"enum": ["FOUND", "NOT_FOUND"]}, "gateway": {"oneOf": [{"$ref": "#/$defs/point"}, {"type": "null"}]}, "direction": {"oneOf": [{"$ref": "#/$defs/point"}, {"type": "null"}]}, "searched_distance_m": {"type": "number", "minimum": 0}, "probes": {"type": "integer", "minimum": 0}}},
+        {"type": "object", "additionalProperties": false, "required": ["evidence_type", "connection_id", "status", "grid_expansions", "grid_cells"], "properties": {"evidence_type": {"const": "PATH_SEARCH"}, "connection_id": {"type": "string"}, "status": {"enum": ["CONNECTED", "NO_FEASIBLE_PATH", "SEARCH_BUDGET_EXHAUSTED"]}, "grid_expansions": {"type": "integer", "minimum": 0}, "grid_cells": {"type": "integer", "minimum": 1}}}
+      ]
+    }
+  }
+}

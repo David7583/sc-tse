@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_layout_result_v0001.schema.json",
+  "title": "SC-TSE Layout Result v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mode", "problem_id", "execution_status", "solve_status", "solution_quality", "layout_candidate", "diagnostics", "evidence", "solver_metadata"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-layout-result-v0.1.0"},
+    "mode": {"enum": ["RUN", "DRY_RUN", "ERROR"]},
+    "problem_id": {"type": ["string", "null"]},
+    "execution_status": {"enum": ["COMPLETED", "INTERRUPTED", "ERROR"]},
+    "solve_status": {"enum": ["FEASIBLE", "INFEASIBLE", "UNRESOLVED", "NOT_EVALUATED"]},
+    "solution_quality": {"enum": ["GOOD", "ACCEPTABLE", "POOR", "UNKNOWN", "N/A"]},
+    "layout_candidate": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["layout_id", "blocks", "hard_constraint_status", "soft_constraint_score"],
+          "properties": {
+            "layout_id": {"type": "string", "minLength": 1},
+            "blocks": {"type": "array", "items": {"$ref": "#/$defs/semanticBlock"}},
+            "hard_constraint_status": {"type": "array", "items": {"$ref": "#/$defs/constraintStatus"}},
+            "soft_constraint_score": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        }
+      ]
+    },
+    "diagnostics": {"type": "object"},
+    "evidence": {"type": "array", "items": {"type": "object"}},
+    "solver_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["phase", "strategy", "proof_capability", "termination_reason", "candidate_evaluations", "search_exhausted"],
+      "properties": {
+        "phase": {"const": "PHASE_1"},
+        "strategy": {"type": ["string", "null"]},
+        "proof_capability": {"enum": ["NONE", "FINITE_CANDIDATE_ENUMERATION"]},
+        "termination_reason": {"type": ["string", "null"]},
+        "candidate_evaluations": {"type": "integer", "minimum": 0},
+        "search_exhausted": {"type": "boolean"}
+      }
+    }
+  },
+  "$defs": {
+    "point2d": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "polygonGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type": {"const": "polygon"},
+        "coordinates": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/point2d"}}
+      }
+    },
+    "rectangleGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "center", "width_m", "height_m"],
+      "properties": {
+        "type": {"const": "rectangle"},
+        "center": {"$ref": "#/$defs/point2d"},
+        "width_m": {"type": "number", "exclusiveMinimum": 0},
+        "height_m": {"type": "number", "exclusiveMinimum": 0},
+        "rotation_deg": {"type": "number"}
+      }
+    },
+    "geometry": {"oneOf": [{"$ref": "#/$defs/polygonGeometry"}, {"$ref": "#/$defs/rectangleGeometry"}]},
+    "semanticBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["block_id", "block_type", "geometry", "semantic_attributes", "connection_gates", "metadata"],
+      "properties": {
+        "block_id": {"type": "string", "minLength": 1},
+        "block_type": {"type": "string", "minLength": 1},
+        "geometry": {"$ref": "#/$defs/geometry"},
+        "semantic_attributes": {"type": "object"},
+        "connection_gates": {"type": "array", "maxItems": 0},
+        "metadata": {"type": "object"}
+      }
+    },
+    "constraintStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_id", "constraint_type", "hardness", "satisfied", "subjects", "observed", "required"],
+      "properties": {
+        "constraint_id": {"type": "string"},
+        "constraint_type": {"type": "string"},
+        "hardness": {"enum": ["HARD", "SOFT"]},
+        "satisfied": {"type": "boolean"},
+        "subjects": {"type": "array", "items": {"type": "string"}},
+        "observed": {},
+        "required": {}
+      }
+    }
+  }
+}

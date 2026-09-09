@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc-tse-road-access-request-v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "access_network_id", "site_entrances", "required_access_ids", "access_connections", "metadata"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-road-access-request-v0.1.0"},
+    "record_type": {"const": "RoadAccessRequest"},
+    "access_network_id": {"type": "string", "minLength": 1},
+    "site_entrances": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["site_entrance_id", "position", "role"],
+        "properties": {
+          "site_entrance_id": {"type": "string", "minLength": 1},
+          "position": {"$ref": "#/$defs/point"},
+          "role": {"enum": ["MAIN", "SECONDARY", "SERVICE", "EMERGENCY"]}
+        }
+      }
+    },
+    "required_access_ids": {"type": "array", "maxItems": 128, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "access_connections": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["access_id", "relation_type", "required", "source", "target", "driveway", "metadata"],
+        "properties": {
+          "access_id": {"type": "string", "minLength": 1},
+          "relation_type": {"enum": ["Road–SiteEntrance", "Road–BuildingGate"]},
+          "required": {"type": "boolean"},
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["source_type", "source_id", "block_id", "position"],
+            "properties": {
+              "source_type": {"enum": ["SiteEntrance", "BuildingGate"]},
+              "source_id": {"type": "string", "minLength": 1},
+              "block_id": {"type": ["string", "null"]},
+              "position": {"$ref": "#/$defs/point"}
+            }
+          },
+          "target": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["target_type", "road_connection_id", "position"],
+            "properties": {
+              "target_type": {"const": "RoadNetwork"},
+              "road_connection_id": {"type": "string", "minLength": 1},
+              "position": {"$ref": "#/$defs/point"}
+            }
+          },
+          "driveway": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["geometry_type", "coordinates"],
+            "properties": {
+              "geometry_type": {"const": "LineString2D"},
+              "coordinates": {"type": "array", "minItems": 2, "maxItems": 256, "items": {"$ref": "#/$defs/point"}}
+            }
+          },
+          "metadata": {"type": "object"}
+        }
+      }
+    },
+    "metadata": {"type": "object"}
+  },
+  "$defs": {
+    "point": {"type": "array", "prefixItems": [{"type": "number"}, {"type": "number"}], "items": false, "minItems": 2, "maxItems": 2}
+  }
+}

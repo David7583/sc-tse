@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_layout_feedback_batch_v0001.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "source_problem_id", "source_result_schema_version", "hints_are_non_binding", "feedback"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-layout-feedback-batch-v0.1.0"},
+    "source_problem_id": {"type": "string", "minLength": 1},
+    "source_result_schema_version": {"enum": ["sc-tse-layout-result-v0.1.0", "sc-tse-connectivity-result-v0.1.0"]},
+    "hints_are_non_binding": {"const": true},
+    "feedback": {"type": "array", "items": {"$ref": "#/$defs/layoutFeedback"}}
+  },
+  "$defs": {
+    "point2d": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "layoutFeedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["feedback_id", "source", "reason", "affected_blocks", "affected_gates", "severity", "direction_hint", "magnitude_hint", "suggested_action", "evidence"],
+      "properties": {
+        "feedback_id": {"type": "string", "pattern": "^lfb-[0-9a-f]{24}$"},
+        "source": {"enum": ["LAYOUT_SOLVER", "CONNECTIVITY_EVALUATOR"]},
+        "reason": {"type": "string", "minLength": 1},
+        "affected_blocks": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "affected_gates": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "severity": {"enum": ["BLOCKING", "NON_BLOCKING", "INDETERMINATE"]},
+        "direction_hint": {"oneOf": [{"$ref": "#/$defs/point2d"}, {"type": "null"}]},
+        "magnitude_hint": {"type": ["number", "null"], "minimum": 0},
+        "suggested_action": {"type": ["string", "null"]},
+        "evidence": {"type": "object"}
+      }
+    }
+  }
+}

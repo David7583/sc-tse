@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc-tse-road-access-config-v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["config_version", "linear_tolerance_m", "maximum_driveway_length_m", "require_driveway_inside_site", "prohibit_crossing_buildings", "assumptions"],
+  "properties": {
+    "config_version": {"const": "v0001"},
+    "linear_tolerance_m": {"type": "number", "exclusiveMinimum": 0, "maximum": 0.01},
+    "maximum_driveway_length_m": {"type": "number", "exclusiveMinimum": 0, "maximum": 10000},
+    "require_driveway_inside_site": {"const": true},
+    "prohibit_crossing_buildings": {"const": true},
+    "assumptions": {"type": "object", "minProperties": 1}
+  }
+}

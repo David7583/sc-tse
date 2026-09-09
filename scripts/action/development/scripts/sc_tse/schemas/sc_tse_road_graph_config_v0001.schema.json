@@ -1,0 +1,5 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"sc_tse_road_graph_config_v0001.schema.json","type":"object","additionalProperties":false,
+  "required":["config_version","snap_tolerance_m","redundancy_clearance_m"],"properties":{"config_version":{"const":"v0001"},"snap_tolerance_m":{"type":"number","exclusiveMinimum":0},"redundancy_clearance_m":{"type":"number","minimum":0}}
+}
+

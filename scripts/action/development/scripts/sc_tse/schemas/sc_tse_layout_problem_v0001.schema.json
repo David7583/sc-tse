@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_layout_problem_v0001.schema.json",
+  "title": "SC-TSE Layout Problem v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "problem_id", "coordinate_frame", "site", "blocks", "constraints", "connection_requirements", "variable_controls", "solver_config"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-layout-problem-v0.1.0"},
+    "problem_id": {"type": "string", "minLength": 1, "maxLength": 200},
+    "coordinate_frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "handedness", "z_axis", "length_unit"],
+      "properties": {
+        "frame_id": {"const": "SC_TSE_CARTESIAN_RH"},
+        "handedness": {"const": "RIGHT"},
+        "z_axis": {"const": "UP"},
+        "length_unit": {"const": "m"}
+      }
+    },
+    "site": {"$ref": "#/$defs/site"},
+    "blocks": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/semanticBlock"}},
+    "constraints": {"type": "array", "items": {"$ref": "#/$defs/constraint"}},
+    "connection_requirements": {"type": "array", "maxItems": 0},
+    "variable_controls": {"type": "array", "items": {"$ref": "#/$defs/variableControl"}},
+    "solver_config": {"$ref": "#/$defs/solverConfig"},
+    "previous_feedback": {"type": "null"},
+    "metadata": {"type": "object"}
+  },
+  "$defs": {
+    "point2d": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "polygonGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type": {"const": "polygon"},
+        "coordinates": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/point2d"}}
+      }
+    },
+    "rectangleGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "center", "width_m", "height_m"],
+      "properties": {
+        "type": {"const": "rectangle"},
+        "center": {"$ref": "#/$defs/point2d"},
+        "width_m": {"type": "number", "exclusiveMinimum": 0},
+        "height_m": {"type": "number", "exclusiveMinimum": 0},
+        "rotation_deg": {"type": "number", "default": 0}
+      }
+    },
+    "geometry": {"oneOf": [{"$ref": "#/$defs/polygonGeometry"}, {"$ref": "#/$defs/rectangleGeometry"}]},
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["site_id", "geometry"],
+      "properties": {
+        "site_id": {"type": "string", "minLength": 1},
+        "geometry": {"$ref": "#/$defs/polygonGeometry"},
+        "metadata": {"type": "object"}
+      }
+    },
+    "semanticBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["block_id", "block_type", "geometry", "semantic_attributes", "connection_gates", "metadata"],
+      "properties": {
+        "block_id": {"type": "string", "minLength": 1},
+        "block_type": {"type": "string", "minLength": 1},
+        "geometry": {"$ref": "#/$defs/geometry"},
+        "semantic_attributes": {"type": "object"},
+        "connection_gates": {"type": "array", "maxItems": 0},
+        "metadata": {"type": "object"}
+      }
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_id", "type", "subjects", "parameters", "hardness", "priority", "source", "metadata"],
+      "properties": {
+        "constraint_id": {"type": "string", "minLength": 1},
+        "type": {"type": "string", "minLength": 1},
+        "subjects": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "parameters": {"type": "object"},
+        "hardness": {"enum": ["HARD", "SOFT"]},
+        "priority": {"type": "integer", "minimum": 0},
+        "source": {"type": "object"},
+        "metadata": {"type": "object"}
+      }
+    },
+    "variableControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "variable", "mode", "source", "metadata"],
+      "properties": {
+        "object_id": {"type": "string", "minLength": 1},
+        "variable": {"const": "position"},
+        "mode": {"enum": ["FIXED", "FREE"]},
+        "source": {"type": "object"},
+        "metadata": {"type": "object"}
+      }
+    },
+    "solverConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy", "placement_domain", "grid_step_m", "max_candidate_evaluations"],
+      "properties": {
+        "strategy": {"const": "DETERMINISTIC_GRID_SCAN"},
+        "placement_domain": {"const": "INITIAL_PLUS_GRID_CENTERS"},
+        "grid_step_m": {"type": "number", "exclusiveMinimum": 0},
+        "max_candidate_evaluations": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}

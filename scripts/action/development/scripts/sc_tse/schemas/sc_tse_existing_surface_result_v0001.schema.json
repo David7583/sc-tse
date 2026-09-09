@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_existing_surface_result_v0001.schema.json",
+  "title": "SC-TSE Existing Surface Result v0001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "execution_status", "surface_status", "problem_id", "problem_hash", "source_binding", "surface", "queries", "summary", "config_hash", "scope", "observability"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-existing-surface-result-v0.1.0"},
+    "record_type": {"const": "ExistingSurfaceRun"},
+    "execution_status": {"const": "COMPLETED"},
+    "surface_status": {"const": "READY"},
+    "problem_id": {"type": "string", "minLength": 1},
+    "problem_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source_binding": {"type": "object"},
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface_id", "surface_method", "surface_method_version", "coordinate_frame", "elevation_reference", "computation_frame", "coverage", "resolution", "vertices", "triangles", "source_evidence_refs", "surface_hash"],
+      "properties": {
+        "surface_id": {"type": "string", "minLength": 1},
+        "surface_method": {"const": "TIN_DELAUNAY_LINEAR"},
+        "surface_method_version": {"const": "v0001"},
+        "coordinate_frame": {"type": "object"},
+        "elevation_reference": {"const": "MSL"},
+        "computation_frame": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "origin_xy", "source_coordinates_preserved"],
+          "properties": {
+            "type": {"const": "LOCAL_TRANSLATION"},
+            "origin_xy": {"$ref": "#/$defs/xy"},
+            "source_coordinates_preserved": {"const": true}
+          }
+        },
+        "coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["policy", "geometry", "bounds", "area_m2"],
+          "properties": {
+            "policy": {"const": "CONVEX_HULL_OF_SURFACE_SAMPLES"},
+            "geometry": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["type", "vertices_xy"],
+              "properties": {
+                "type": {"const": "Polygon2D"},
+                "vertices_xy": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/xy"}}
+              }
+            },
+            "bounds": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number"}},
+            "area_m2": {"type": "number", "exclusiveMinimum": 0}
+          }
+        },
+        "resolution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["model", "source_vertex_count", "triangulation_snap_tolerance_m", "numerical_tolerance_m", "barycentric_tolerance", "equivalent_elevation_tolerance_m", "minimum_triangle_area_m2"],
+          "properties": {
+            "model": {"const": "IRREGULAR_SOURCE_VERTICES"},
+            "source_vertex_count": {"type": "integer", "minimum": 3},
+            "triangulation_snap_tolerance_m": {"const": 0.0},
+            "numerical_tolerance_m": {"type": "number", "exclusiveMinimum": 0},
+            "barycentric_tolerance": {"type": "number", "exclusiveMinimum": 0},
+            "equivalent_elevation_tolerance_m": {"type": "number", "minimum": 0},
+            "minimum_triangle_area_m2": {"type": "number", "exclusiveMinimum": 0}
+          }
+        },
+        "vertices": {"type": "array", "minItems": 3, "items": {"$ref": "#/$defs/vertex"}},
+        "triangles": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/triangle"}},
+        "source_evidence_refs": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 1}},
+        "surface_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "queries": {"type": "array", "items": {"$ref": "#/$defs/query"}},
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_count", "source_vertex_count", "unique_vertex_count", "triangle_count", "source_evidence_count"],
+      "properties": {
+        "source_count": {"type": "integer", "minimum": 3},
+        "source_vertex_count": {"type": "integer", "minimum": 3},
+        "unique_vertex_count": {"type": "integer", "minimum": 3},
+        "triangle_count": {"type": "integer", "minimum": 1},
+        "source_evidence_count": {"type": "integer", "minimum": 3}
+      }
+    },
+    "config_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "scope": {"const": "EXISTING_SURFACE_CONSTRUCTION_AND_QUERY_ONLY"},
+    "observability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_ms", "source_vertex_count", "triangle_count", "query_count"],
+      "properties": {
+        "total_ms": {"type": "number", "minimum": 0},
+        "source_vertex_count": {"type": "integer", "minimum": 3},
+        "triangle_count": {"type": "integer", "minimum": 1},
+        "query_count": {"type": "integer", "minimum": 0}
+      }
+    }
+  },
+  "$defs": {
+    "xy": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+    "vertex": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["vertex_id", "x", "y", "elevation_m", "source_evidence_refs", "geometry_refs"],
+      "properties": {
+        "vertex_id": {"type": "string", "minLength": 1},
+        "x": {"type": "number"},
+        "y": {"type": "number"},
+        "elevation_m": {"type": "number"},
+        "source_evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "geometry_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "triangle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["triangle_id", "vertex_indices", "bbox", "source_evidence_refs"],
+      "properties": {
+        "triangle_id": {"type": "string", "minLength": 1},
+        "vertex_indices": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "integer", "minimum": 0}},
+        "bbox": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number"}},
+        "source_evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "x", "y", "elevation_m", "reference", "quality", "source_evidence_refs", "interpolation", "diagnostic"],
+      "properties": {
+        "status": {"enum": ["AVAILABLE", "OUTSIDE_COVERAGE", "UNAVAILABLE_COVERAGE_GAP"]},
+        "x": {"type": "number"},
+        "y": {"type": "number"},
+        "elevation_m": {"type": ["number", "null"]},
+        "reference": {"const": "MSL"},
+        "quality": {"enum": ["DIRECT_AT_SOURCE_SAMPLE", "INTERPOLATED", "UNAVAILABLE"]},
+        "source_evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "interpolation": {"type": ["object", "null"]},
+        "diagnostic": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

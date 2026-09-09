@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_slope_transition_request_v0001.schema.json",
+  "$defs": {
+    "point": {"type": "array", "prefixItems": [{"type": "number"}, {"type": "number"}], "items": false},
+    "polygon": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/point"}},
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_id", "polygon"],
+      "properties": {"constraint_id": {"type": "string", "minLength": 1}, "polygon": {"$ref": "#/$defs/polygon"}}
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "request_id", "design_surface_id", "design_parameter_id", "design_elevation_m", "platform_boundary", "slope", "constraints"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-slope-transition-request-v0.1.0"},
+    "record_type": {"const": "SlopeTransitionRequest"},
+    "request_id": {"type": "string", "minLength": 1},
+    "design_surface_id": {"type": "string", "minLength": 1},
+    "design_parameter_id": {"type": "string", "minLength": 1},
+    "design_elevation_m": {"type": "number"},
+    "platform_boundary": {"$ref": "#/$defs/polygon"},
+    "slope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slope_type", "ratio_horizontal_to_vertical", "maximum_search_distance_m"],
+      "properties": {
+        "slope_type": {"enum": ["CUT_SLOPE", "FILL_SLOPE", "FIXED_RATIO_SLOPE"]},
+        "ratio_horizontal_to_vertical": {"type": "number", "exclusiveMinimum": 0},
+        "maximum_search_distance_m": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["redline", "buildings", "roads"],
+      "properties": {
+        "redline": {"$ref": "#/$defs/constraint"},
+        "buildings": {"type": "array", "items": {"$ref": "#/$defs/constraint"}},
+        "roads": {"type": "array", "items": {"$ref": "#/$defs/constraint"}}
+      }
+    }
+  }
+}

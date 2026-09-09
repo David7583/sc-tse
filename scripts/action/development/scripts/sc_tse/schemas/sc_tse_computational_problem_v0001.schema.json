@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_computational_problem_v0001.schema.json",
+  "title": "SC-TSE Computational Problem v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "problem_id", "coordinate_frame", "site", "blocks", "constraints", "connection_requirements"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-computational-problem-v0.1.0"},
+    "problem_id": {"type": "string", "minLength": 1, "maxLength": 200},
+    "coordinate_frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "handedness", "z_axis", "length_unit"],
+      "properties": {
+        "frame_id": {"const": "SC_TSE_CARTESIAN_RH"},
+        "handedness": {"const": "RIGHT"},
+        "z_axis": {"const": "UP"},
+        "length_unit": {"const": "m"}
+      }
+    },
+    "site": {"$ref": "#/$defs/site"},
+    "blocks": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/semanticBlock"}
+    },
+    "constraints": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/constraint"}
+    },
+    "connection_requirements": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/connectionRequirement"}
+    },
+    "metadata": {"type": "object"}
+  },
+  "$defs": {
+    "point2d": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "polygonGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type": {"const": "polygon"},
+        "coordinates": {
+          "type": "array",
+          "minItems": 4,
+          "items": {"$ref": "#/$defs/point2d"}
+        }
+      }
+    },
+    "rectangleGeometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "center", "width_m", "height_m"],
+      "properties": {
+        "type": {"const": "rectangle"},
+        "center": {"$ref": "#/$defs/point2d"},
+        "width_m": {"type": "number", "exclusiveMinimum": 0},
+        "height_m": {"type": "number", "exclusiveMinimum": 0},
+        "rotation_deg": {"type": "number", "default": 0}
+      }
+    },
+    "geometry": {
+      "oneOf": [
+        {"$ref": "#/$defs/polygonGeometry"},
+        {"$ref": "#/$defs/rectangleGeometry"}
+      ]
+    },
+    "elevation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reference", "value_m"],
+      "properties": {
+        "reference": {"enum": ["absolute", "relative"]},
+        "value_m": {"type": "number"},
+        "datum_id": {"type": "string", "minLength": 1},
+        "source": {"type": "string"}
+      }
+    },
+    "zInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min_m", "max_m"],
+      "properties": {
+        "min_m": {"type": "number"},
+        "max_m": {"type": "number"}
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gate_id", "position", "gate_type", "allowed_connections"],
+      "properties": {
+        "gate_id": {"type": "string", "minLength": 1},
+        "position": {"$ref": "#/$defs/point2d"},
+        "gate_type": {"type": "string", "minLength": 1},
+        "allowed_connections": {"type": "array", "items": {"type": "string"}},
+        "metadata": {"type": "object"}
+      }
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["site_id", "geometry"],
+      "properties": {
+        "site_id": {"type": "string", "minLength": 1},
+        "geometry": {"$ref": "#/$defs/polygonGeometry"},
+        "metadata": {"type": "object"}
+      }
+    },
+    "semanticBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["block_id", "block_type", "geometry", "semantic_attributes", "connection_gates", "metadata"],
+      "properties": {
+        "block_id": {"type": "string", "minLength": 1},
+        "block_type": {"type": "string", "minLength": 1},
+        "geometry": {"$ref": "#/$defs/geometry"},
+        "elevation": {"$ref": "#/$defs/elevation"},
+        "z_interval": {"$ref": "#/$defs/zInterval"},
+        "semantic_attributes": {"type": "object"},
+        "connection_gates": {"type": "array", "items": {"$ref": "#/$defs/gate"}},
+        "metadata": {"type": "object"}
+      }
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_id", "type", "subjects", "parameters", "hardness", "priority", "source", "metadata"],
+      "properties": {
+        "constraint_id": {"type": "string", "minLength": 1},
+        "type": {"type": "string", "minLength": 1},
+        "subjects": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "parameters": {"type": "object"},
+        "hardness": {"enum": ["HARD", "SOFT"]},
+        "priority": {"type": "integer", "minimum": 0},
+        "source": {"type": "object"},
+        "metadata": {"type": "object"}
+      }
+    },
+    "connectionRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["connection_id", "source_block", "target_block", "connection_type", "required", "attributes"],
+      "properties": {
+        "connection_id": {"type": "string", "minLength": 1},
+        "source_block": {"type": "string", "minLength": 1},
+        "source_gate": {"type": ["string", "null"]},
+        "target_block": {"type": "string", "minLength": 1},
+        "target_gate": {"type": ["string", "null"]},
+        "connection_type": {"type": "string", "minLength": 1},
+        "required": {"type": "boolean"},
+        "attributes": {"type": "object"}
+      }
+    }
+  }
+}

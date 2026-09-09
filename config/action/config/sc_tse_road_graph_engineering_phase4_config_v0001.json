@@ -1,0 +1,10 @@
+{
+  "config_version":"v0001","width_candidates_m":[4],
+  "setbacks":{"road_redline_m":5,"building_redline_m":5,"building_road_m":0},
+  "turning":{"centerline_radius_m":6},
+  "vertical":{"cross_slope_ratio":0.02,"min_cross_slope_ratio":0.01,"max_cross_slope_ratio":0.03,"max_longitudinal_slope_ratio":0.06,"sample_step_m":2},
+  "search":{"inset_offsets_m":[0],"max_attempts":8,"max_vertices":512,"max_samples":30000},
+  "numerics":{"linear_tolerance_m":0.0001,"arc_chord_error_m":0.01},
+  "assumptions":{"scope":"Synthetic Golden engineering thresholds; not regulatory certification"}
+}
+

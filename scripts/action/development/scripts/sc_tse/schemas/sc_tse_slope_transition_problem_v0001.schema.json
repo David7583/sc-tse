@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_slope_transition_problem_v0001.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_type", "problem_id", "coordinate_frame", "reference", "existing_surface_result", "design_surface", "platform", "slope", "constraints", "source_refs", "problem_hash"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-slope-transition-problem-v0.1.0"},
+    "record_type": {"const": "SlopeTransitionProblem"},
+    "problem_id": {"type": "string", "minLength": 1},
+    "coordinate_frame": {"type": "object"},
+    "reference": {"type": "string", "minLength": 1},
+    "existing_surface_result": {"type": "object"},
+    "design_surface": {"type": "object"},
+    "platform": {"type": "object"},
+    "slope": {"type": "object"},
+    "constraints": {"type": "object"},
+    "source_refs": {"type": "object"},
+    "problem_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

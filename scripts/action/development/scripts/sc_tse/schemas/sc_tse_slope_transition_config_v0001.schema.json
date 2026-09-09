@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sc_tse_slope_transition_config_v0001.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "supported_slope_types", "sampling", "limits", "numerics"],
+  "properties": {
+    "schema_version": {"const": "sc-tse-slope-transition-config-v0.1.0"},
+    "supported_slope_types": {"const": ["CUT_SLOPE", "FILL_SLOPE", "FIXED_RATIO_SLOPE"]},
+    "sampling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["boundary_step_m", "search_step_m", "root_refinement_iterations"],
+      "properties": {
+        "boundary_step_m": {"type": "number", "exclusiveMinimum": 0},
+        "search_step_m": {"type": "number", "exclusiveMinimum": 0},
+        "root_refinement_iterations": {"type": "integer", "minimum": 1}
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maximum_boundary_samples", "maximum_search_samples"],
+      "properties": {
+        "maximum_boundary_samples": {"type": "integer", "minimum": 1},
+        "maximum_search_samples": {"type": "integer", "minimum": 1}
+      }
+    },
+    "numerics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["linear_tolerance_m", "area_tolerance_m2", "classification_tolerance_m"],
+      "properties": {
+        "linear_tolerance_m": {"type": "number", "minimum": 0},
+        "area_tolerance_m2": {"type": "number", "minimum": 0},
+        "classification_tolerance_m": {"type": "number", "minimum": 0}
+      }
+    }
+  }
+}

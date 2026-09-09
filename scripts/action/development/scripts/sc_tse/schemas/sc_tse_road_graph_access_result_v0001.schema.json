@@ -1,0 +1,11 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema","$id":"sc_tse_road_graph_access_result_v0001.schema.json","type":"object","additionalProperties":false,
+  "required":["schema_version","record_type","execution_status","evaluation_status","problem_id","road_graph_id","road_topology","access_connections","failure_data","source_refs","observability"],
+  "properties":{
+    "schema_version":{"const":"sc-tse-road-graph-access-result-v0.1.0"},"record_type":{"const":"RoadGraphAccessRun"},"execution_status":{"const":"COMPLETED"},"evaluation_status":{"enum":["PASS","FAIL"]},"problem_id":{"type":"string"},"road_graph_id":{"type":"string"},
+    "road_topology":{"type":"object","additionalProperties":false,"required":["relation_type","connected_component_count","cycle_count","status"],"properties":{"relation_type":{"const":"Road-RoadTopology"},"connected_component_count":{"type":"integer"},"cycle_count":{"type":"integer"},"status":{"enum":["SATISFIED","VIOLATED"]}}},
+    "access_connections":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["access_id","relation_type","source_id","block_id","status","coordinates","network_position","checks","source_node"],"properties":{"access_id":{"type":"string"},"relation_type":{"enum":["Road-SiteEntrance","Road-BuildingGate"]},"source_id":{"type":"string"},"block_id":{"type":["string","null"]},"status":{"enum":["CONNECTED","NOT_CONNECTED"]},"coordinates":{"type":"array"},"network_position":{"type":"array"},"checks":{"type":"object"},"source_node":{"type":"string"}}}},
+    "failure_data":{"type":"array","items":{"type":"object"}},"source_refs":{"type":"object"},"observability":{"type":"object"}
+  }
+}
+
